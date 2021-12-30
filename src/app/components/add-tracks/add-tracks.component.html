@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Upload Audio File</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <mat-select placeholder="Select Book" formControlName="book">
+      <ng-container *ngFor="let book of books$ | async">
+        <mat-option [value]="book.book">
+          {{ book.book }}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+    <mat-error *ngIf="book.invalid">Book is mandatory!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input placeholder="Title" matInput formControlName="name" />
+    <mat-error *ngIf="name.invalid">Title/Description is mandatory!</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      placeholder="Duration of audio"
+      matInput
+      formControlName="duration"
+    />
+    <mat-error *ngIf="duration.invalid">Duration is mandatory!</mat-error>
+  </mat-form-field>
+  <div (click)="upload.click()">
+    <button mat-raised-button color="primary">Select File</button>
+    <input
+      #upload
+      type="file"
+      (change)="uploadTrack($event)"
+      style="display: none"
+    />
+  </div>
+  <mat-divider></mat-divider>
+  <h4>Upload progress:</h4>
+  <div *ngIf="percentageChanges$ | async as percentage">
+    <mat-progress-bar mode="determinate" [value]="percentage">
+    </mat-progress-bar>
+    <span> {{ percentage / 100 | percent }} </span>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button (click)="close()">Close</button>
+</mat-dialog-actions>

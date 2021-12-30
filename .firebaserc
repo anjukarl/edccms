@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "audiotest-57c98": {
+      "hosting": {
+        "uploadAudio": [
+          "audiotest-57c98"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "audiotest-57c98"
+  }
+}
