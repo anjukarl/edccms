@@ -53,19 +53,20 @@ export class AddTracksComponent implements OnInit {
       .pipe(
         finalize(() => {
           storageRef.getDownloadURL().subscribe((downloadUrl) => {
-            this.saveTrackInfo(downloadUrl);
+            this.saveTrackInfo(downloadUrl, file.name);
           });
         })
       )
       .subscribe();
   }
 
-  saveTrackInfo(dlurl: string) {
+  saveTrackInfo(dlurl: string, fileName: string) {
     let newTrack: Partial<Track> = {};
     newTrack.book = this.form.value.book;
     newTrack.name = this.form.value.name;
     newTrack.duration = +this.form.value.duration;
     newTrack.path = dlurl;
+    newTrack.fileName = fileName;
     this.fileService.createTrack(newTrack);
   }
 

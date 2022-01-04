@@ -3,10 +3,11 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { finalize } from 'rxjs';
 
 import { Track } from './models';
 import { FileService } from './services/file.service';
-import { finalize } from 'rxjs';
+import { DialogService } from './services/dialog.service';
 import { AddTracksComponent } from './components/add-tracks/add-tracks.component';
 
 @Component({
@@ -25,7 +26,11 @@ export class AppComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private fileService: FileService, private dialog: MatDialog) {}
+  constructor(
+    private fileService: FileService,
+    private dialog: MatDialog,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit(): void {
     this.reloadTracks();
@@ -74,6 +79,16 @@ export class AppComponent implements OnInit {
   }
 
   deleteTrack(track: Track) {
-    alert('Feature not ready!');
+    this.dialogService
+      .openConfirmDialog('Are you sure you want to delete?')
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.fileService
+            .deleteTrack(track.id, track.fileName)
+            .pipe(finalize(() => this.reloadTracks()))
+            .subscribe();
+        }
+      });
   }
 }

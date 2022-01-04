@@ -30,6 +30,12 @@ export class FileService {
     );
   }
 
+  deleteTrack(trackId: string, trackName: string) {
+    const storageRef = this.storage.ref(this.basePath);
+    storageRef.child(trackName).delete();
+    return from(this.db.doc(`audio/${trackId}`).delete());
+  }
+
   loadTracks(): Observable<Track[]> {
     return this.db
       .collection('audio')
