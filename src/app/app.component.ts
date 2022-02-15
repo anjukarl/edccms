@@ -71,6 +71,7 @@ export class AppComponent implements OnInit {
       .afterClosed()
       .subscribe(() => {
         this.reloadTracks();
+        this.onSearchClear();
       });
   }
 

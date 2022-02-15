@@ -18,6 +18,7 @@ export class AddTracksComponent implements OnInit {
   form!: FormGroup;
   percentageChanges$!: Observable<number>;
   books$!: Observable<Book[]>;
+  filen = '';
 
   constructor(
     private dialogRef: MatDialogRef<AddTracksComponent>,
@@ -42,7 +43,12 @@ export class AddTracksComponent implements OnInit {
 
   async uploadTrack(event: any) {
     const file = event.target.files[0];
-    const filePath = `/audioFiles/${file.name}`;
+
+    let filename = file.name;
+    this.filen = filename;
+    filename = filename.split('.').join('-' + Date.now() + '.');
+
+    const filePath = `/audioFiles/${filename}`;
     const storageRef = this.storage.ref(filePath);
 
     const task = this.storage.upload(filePath, file);
@@ -53,7 +59,7 @@ export class AddTracksComponent implements OnInit {
       .pipe(
         finalize(() => {
           storageRef.getDownloadURL().subscribe((downloadUrl) => {
-            this.saveTrackInfo(downloadUrl, file.name);
+            this.saveTrackInfo(downloadUrl, filename);
           });
         })
       )

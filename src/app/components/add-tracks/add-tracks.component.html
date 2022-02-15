@@ -24,7 +24,7 @@
     />
     <mat-error *ngIf="duration.invalid">Duration is mandatory!</mat-error>
   </mat-form-field>
-  <div (click)="upload.click()">
+  <div *ngIf="form.valid" (click)="upload.click()">
     <button mat-raised-button color="primary">Select File</button>
     <input
       #upload
@@ -33,8 +33,12 @@
       style="display: none"
     />
   </div>
-  <mat-divider></mat-divider>
-  <h4>Upload progress:</h4>
+  <div>
+    <mat-divider></mat-divider>
+  </div>
+  <div>
+    <h4>Uploading... {{ filen }}</h4>
+  </div>
   <div *ngIf="percentageChanges$ | async as percentage">
     <mat-progress-bar mode="determinate" [value]="percentage">
     </mat-progress-bar>
