@@ -11,6 +11,7 @@ import { convertSnaps } from './utils';
   providedIn: 'root',
 })
 export class FileService {
+  tracks: Track[] = [];
   private basePath = '/audioFiles';
   constructor(
     private db: AngularFirestore,
@@ -48,5 +49,52 @@ export class FileService {
       .collection('books', (ref) => ref.orderBy('order'))
       .get()
       .pipe(map((results) => convertSnaps<Book>(results)));
+  }
+
+  loadBooksByName(): Observable<Book[]> {
+    return this.db
+      .collection('books', (ref) => ref.orderBy('book'))
+      .get()
+      .pipe(map((results) => convertSnaps<Book>(results)));
+  }
+
+  updatePath() {
+    this.loadTracks().subscribe((tracklist) => {
+      this.tracks = tracklist;
+      let records = 0;
+      this.tracks.forEach((audio) => {
+        const filename = audio.fileName;
+        const filePath = `/audioFiles/${filename}`;
+        const storageRef = this.storage.ref(filePath);
+
+        storageRef.getDownloadURL().subscribe((downloadUrl) => {
+          this.updateTrackInfo(audio.id, downloadUrl).subscribe(() => {
+            records += 1;
+            console.log(`Updated url: ${records}: `, audio.id);
+          });
+        });
+      });
+    });
+  }
+
+  updateTrackInfo(trackId: string, url: string) {
+    return from(this.db.doc(`audio/${trackId}`).update({ path: url }));
+  }
+
+  updateName() {
+    this.loadTracks().subscribe((tracklist) => {
+      this.tracks = tracklist;
+      let records = 0;
+      this.tracks.forEach((audio) => {
+        this.updateNameField(audio.id).subscribe(() => {
+          records += 1;
+          console.log(`Updated url: ${records}: `, audio.id);
+        });
+      });
+    });
+  }
+
+  updateNameField(trackId: string) {
+    return from(this.db.doc(`audio/${trackId}`).update({ namk: '' }));
   }
 }

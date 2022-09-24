@@ -1,0 +1,15 @@
+.container {
+  width: 60%;
+  margin: auto;
+  margin-top: 5vh;
+}
+
+mat-grid-tile {
+  background: #eee;
+}
+
+mat-toolbar {
+  background-color: rgb(86, 150, 113, 0.8);
+  color: white;
+  box-shadow: 2px 5px 8px rgb(0, 0, 0, 0.6);
+}

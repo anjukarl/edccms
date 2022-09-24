@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase: {
-    projectId: 'audiotest-57c98',
-    appId: '1:134864965992:web:2ec3e0e4856c6e6b7c06dd',
-    storageBucket: 'audiotest-57c98.appspot.com',
-    locationId: 'us-central',
-    apiKey: 'AIzaSyBYP9u5lV-L285W0HactkaPLTbrvKakFaI',
-    authDomain: 'audiotest-57c98.firebaseapp.com',
-    messagingSenderId: '134864965992',
+    apiKey: 'AIzaSyA7tSfgvo9iMlmZpENiWxpWtLqEHyLXJ8w',
+    authDomain: 'withthebible-c93d6.firebaseapp.com',
+    projectId: 'withthebible-c93d6',
+    storageBucket: 'withthebible-c93d6.appspot.com',
+    messagingSenderId: '557096516299',
+    appId: '1:557096516299:web:a407d6715b4c0fec05f94e',
+    measurementId: 'G-7MN5CNC44C',
   },
 };
 

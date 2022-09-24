@@ -19,6 +19,7 @@ export class AddTracksComponent implements OnInit {
   percentageChanges$!: Observable<number>;
   books$!: Observable<Book[]>;
   filen = '';
+  canClose = true;
 
   constructor(
     private dialogRef: MatDialogRef<AddTracksComponent>,
@@ -29,12 +30,13 @@ export class AddTracksComponent implements OnInit {
     this.form = this.fb.group({
       book: ['', Validators.required],
       name: ['', Validators.required],
-      duration: ['', Validators.required],
+      namk: [''],
     });
   }
 
   ngOnInit(): void {
-    this.books$ = this.fileService.loadBooks();
+    this.books$ = this.fileService.loadBooksByName();
+    // this.canClose = false;
   }
 
   close() {
@@ -43,6 +45,7 @@ export class AddTracksComponent implements OnInit {
 
   async uploadTrack(event: any) {
     const file = event.target.files[0];
+    this.canClose = false;
 
     let filename = file.name;
     this.filen = filename;
@@ -60,6 +63,7 @@ export class AddTracksComponent implements OnInit {
         finalize(() => {
           storageRef.getDownloadURL().subscribe((downloadUrl) => {
             this.saveTrackInfo(downloadUrl, filename);
+            this.canClose = true;
           });
         })
       )
@@ -70,7 +74,7 @@ export class AddTracksComponent implements OnInit {
     let newTrack: Partial<Track> = {};
     newTrack.book = this.form.value.book;
     newTrack.name = this.form.value.name;
-    newTrack.duration = +this.form.value.duration;
+    newTrack.namk = this.form.value.namk;
     newTrack.path = dlurl;
     newTrack.fileName = fileName;
     this.fileService.createTrack(newTrack);
@@ -82,7 +86,7 @@ export class AddTracksComponent implements OnInit {
   get name() {
     return this.form.controls['name'];
   }
-  get duration() {
-    return this.form.controls['duration'];
-  }
+  // get duration() {
+  //   return this.form.controls['duration'];
+  // }
 }

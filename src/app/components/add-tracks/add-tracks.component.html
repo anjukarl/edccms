@@ -17,12 +17,8 @@
     <mat-error *ngIf="name.invalid">Title/Description is mandatory!</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input
-      placeholder="Duration of audio"
-      matInput
-      formControlName="duration"
-    />
-    <mat-error *ngIf="duration.invalid">Duration is mandatory!</mat-error>
+    <input placeholder="Title in Kannada" matInput formControlName="namk" />
+    <!-- <mat-error *ngIf="duration.invalid">Duration is mandatory!</mat-error> -->
   </mat-form-field>
   <div *ngIf="form.valid" (click)="upload.click()">
     <button mat-raised-button color="primary">Select File</button>
@@ -37,7 +33,7 @@
     <mat-divider></mat-divider>
   </div>
   <div>
-    <h4>Uploading... {{ filen }}</h4>
+    <h4 *ngIf="filen">Uploading... {{ filen }}</h4>
   </div>
   <div *ngIf="percentageChanges$ | async as percentage">
     <mat-progress-bar mode="determinate" [value]="percentage">
@@ -47,5 +43,5 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-raised-button (click)="close()">Close</button>
+  <button *ngIf="canClose" mat-raised-button (click)="close()">Close</button>
 </mat-dialog-actions>

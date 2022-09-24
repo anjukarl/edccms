@@ -1,14 +1,14 @@
 {
   "targets": {
-    "audiotest-57c98": {
+    "withthebible-c93d6": {
       "hosting": {
         "uploadAudio": [
-          "audiotest-57c98"
+          "withthebible-c93d6"
         ]
       }
     }
   },
   "projects": {
-    "default": "audiotest-57c98"
+    "default": "withthebible-c93d6"
   }
 }
