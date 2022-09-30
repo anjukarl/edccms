@@ -4,7 +4,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Track, Book } from '../models';
+import { Track, Book, Videos, Bibverses } from '../models';
 import { convertSnaps } from './utils';
 
 @Injectable({
@@ -44,6 +44,17 @@ export class FileService {
       .pipe(map((results) => convertSnaps<Track>(results)));
   }
 
+  loadVerses(): Observable<Bibverses[]> {
+    return this.db
+      .collection('verses')
+      .get()
+      .pipe(map((results) => convertSnaps<Bibverses>(results)));
+  }
+
+  deleteVerse(verseId: string) {
+    return from(this.db.doc(`verses/${verseId}`).delete());
+  }
+
   loadBooks(): Observable<Book[]> {
     return this.db
       .collection('books', (ref) => ref.orderBy('order'))
@@ -57,6 +68,34 @@ export class FileService {
       .get()
       .pipe(map((results) => convertSnaps<Book>(results)));
   }
+
+  createVideos(newVideos: Videos[]) {
+    let batch = this.db.firestore.batch();
+
+    for (const video of newVideos) {
+      const docRef = this.db.collection('vmedia').doc().ref;
+      batch.set(docRef, video);
+    }
+    return batch.commit();
+  }
+
+  createVerse(newVerse: Partial<Bibverses>) {
+    let save$: Observable<any>;
+    save$ = from(this.db.collection('verses').add(newVerse));
+    return save$.pipe(
+      map((res) => {
+        return {
+          id: res.id,
+          ...newVerse,
+        };
+      })
+    );
+  }
+
+  /*
+    Temporary functions used when moving collections to new project
+    and when including kannada language.
+  */
 
   updatePath() {
     this.loadTracks().subscribe((tracklist) => {

@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Observable } from 'rxjs';
@@ -36,7 +36,6 @@ export class AddTracksComponent implements OnInit {
 
   ngOnInit(): void {
     this.books$ = this.fileService.loadBooksByName();
-    // this.canClose = false;
   }
 
   close() {
@@ -86,7 +85,4 @@ export class AddTracksComponent implements OnInit {
   get name() {
     return this.form.controls['name'];
   }
-  // get duration() {
-  //   return this.form.controls['duration'];
-  // }
 }

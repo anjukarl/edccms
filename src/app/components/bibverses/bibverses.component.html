@@ -1,0 +1,71 @@
+<mat-toolbar>
+  <img src="../../../assets/econ-10.png" alt="logo" class="logoimg" />
+  <span>WITH THE BIBLE - Verses Upload</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button routerLink="/home">
+    <mat-icon>home</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="table mat-elevation-z8">
+  <h2>VERSES LIST</h2>
+  <mat-spinner class="spinner" [diameter]="30" *ngIf="loading"></mat-spinner>
+  <div class="search-div">
+    <button mat-raised-button (click)="addVerse()">
+      <mat-icon>add</mat-icon>Add New
+    </button>
+    <mat-form-field class="search-form-field" floatLabel="never">
+      <input
+        matInput
+        [(ngModel)]="searchKey"
+        placeholder="Search"
+        autocomplete="off"
+        (keyup)="applyFilter()"
+      />
+      <button
+        mat-button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        *ngIf="searchKey"
+        (click)="onSearchClear()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="reference">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Reference</th>
+      <td mat-cell *matCellDef="let verse">{{ verse.reference }}</td>
+    </ng-container>
+    <ng-container matColumnDef="text">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Verse</th>
+      <td mat-cell *matCellDef="let verse">{{ verse.text }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button color="warn" (click)="deleteVerse(row)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr
+      mat-row
+      *matRowDef="let myRowData; let even = even; columns: columnsToDisplay"
+      [ngClass]="{ gray: even }"
+    ></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    [pageSize]="10"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>

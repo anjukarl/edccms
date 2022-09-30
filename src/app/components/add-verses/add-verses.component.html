@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Upload Verse</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input placeholder="Reference" matInput formControlName="reference" />
+    <mat-error *ngIf="reference.invalid">Reference is mandatory!</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="Text" matInput formControlName="text" />
+    <mat-error *ngIf="text.invalid">Text is mandatory!</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button *ngIf="form.valid" mat-raised-button (click)="save()">Save</button>
+</mat-dialog-actions>
