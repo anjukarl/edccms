@@ -1,19 +1,19 @@
-<h2 mat-dialog-title>Upload Verse</h2>
+<h2 mat-dialog-title>Upload Q & A</h2>
 
 <mat-dialog-content [formGroup]="form">
   <mat-form-field>
-    <input placeholder="Reference" matInput formControlName="reference" />
-    <mat-error *ngIf="reference.invalid">Reference is mandatory!</mat-error>
+    <input placeholder="Question" matInput formControlName="question" />
+    <mat-error *ngIf="question.invalid">Question is mandatory!</mat-error>
   </mat-form-field>
   <mat-form-field>
     <textarea
-      rows="4"
-      cols="50"
-      placeholder="Verse"
+      rows="6"
+      cols="100"
+      placeholder="Answer"
       matInput
-      formControlName="text"
+      formControlName="answer"
     ></textarea>
-    <mat-error *ngIf="text.invalid">Text is mandatory!</mat-error>
+    <mat-error *ngIf="answer.invalid">Answer is mandatory!</mat-error>
   </mat-form-field>
 </mat-dialog-content>
 

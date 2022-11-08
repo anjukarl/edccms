@@ -4,7 +4,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Track, Book, Videos, Bibverses } from '../models';
+import { Track, Book, Videos, Bibverses, Qanda } from '../models';
 import { convertSnaps } from './utils';
 
 @Injectable({
@@ -17,6 +17,10 @@ export class FileService {
     private db: AngularFirestore,
     private storage: AngularFireStorage
   ) {}
+
+  /*
+    With the Bible audio tracks
+  */
 
   createTrack(newTrack: Partial<Track>) {
     let save$: Observable<any>;
@@ -44,6 +48,10 @@ export class FileService {
       .pipe(map((results) => convertSnaps<Track>(results)));
   }
 
+  /*
+    Bible verses for hero images
+  */
+
   loadVerses(): Observable<Bibverses[]> {
     return this.db
       .collection('verses')
@@ -54,6 +62,51 @@ export class FileService {
   deleteVerse(verseId: string) {
     return from(this.db.doc(`verses/${verseId}`).delete());
   }
+
+  createVerse(newVerse: Partial<Bibverses>) {
+    let save$: Observable<any>;
+    save$ = from(this.db.collection('verses').add(newVerse));
+    return save$.pipe(
+      map((res) => {
+        return {
+          id: res.id,
+          ...newVerse,
+        };
+      })
+    );
+  }
+
+  /*
+    Questions & Answers
+  */
+
+  loadQandas(): Observable<Qanda[]> {
+    return this.db
+      .collection('qanda')
+      .get()
+      .pipe(map((results) => convertSnaps<Qanda>(results)));
+  }
+
+  deleteQanda(qandaId: string) {
+    return from(this.db.doc(`qanda/${qandaId}`).delete());
+  }
+
+  createQanda(newQanda: Partial<Bibverses>) {
+    let save$: Observable<any>;
+    save$ = from(this.db.collection('qanda').add(newQanda));
+    return save$.pipe(
+      map((res) => {
+        return {
+          id: res.id,
+          ...newQanda,
+        };
+      })
+    );
+  }
+
+  /*
+    Getting Bible books from database for lookup fields
+  */
 
   loadBooks(): Observable<Book[]> {
     return this.db
@@ -69,6 +122,10 @@ export class FileService {
       .pipe(map((results) => convertSnaps<Book>(results)));
   }
 
+  /*
+    Updating videos from YouTube to Firestore
+  */
+
   createVideos(newVideos: Videos[]) {
     let batch = this.db.firestore.batch();
 
@@ -77,19 +134,6 @@ export class FileService {
       batch.set(docRef, video);
     }
     return batch.commit();
-  }
-
-  createVerse(newVerse: Partial<Bibverses>) {
-    let save$: Observable<any>;
-    save$ = from(this.db.collection('verses').add(newVerse));
-    return save$.pipe(
-      map((res) => {
-        return {
-          id: res.id,
-          ...newVerse,
-        };
-      })
-    );
   }
 
   /*

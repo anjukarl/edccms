@@ -8,6 +8,10 @@ mat-grid-tile {
   background: #eee;
 }
 
+mat-grid-list {
+  display: flex;
+}
+
 mat-toolbar {
   background-color: rgb(86, 150, 113, 0.8);
   color: white;

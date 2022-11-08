@@ -32,6 +32,10 @@ export class AddVersesComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  cancel() {
+    this.dialogRef.close();
+  }
+
   saveVerseInfo() {
     let newVerse: Partial<Bibverses> = {};
     newVerse.reference = this.form.value.reference;

@@ -19,12 +19,15 @@ import { WtbaudioComponent } from './components/wtbaudio/wtbaudio.component';
 import { GetfromytComponent } from './components/getfromyt/getfromyt.component';
 import { BibversesComponent } from './components/bibverses/bibverses.component';
 import { AddVersesComponent } from './components/add-verses/add-verses.component';
+import { QandaComponent } from './components/qanda/qanda.component';
+import { AddQandaComponent } from './components/add-qanda/add-qanda.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'wtbaudio', component: WtbaudioComponent },
-  { path: 'getfromyt', component: GetfromytComponent },
   { path: 'bibverses', component: BibversesComponent },
+  { path: 'getfromyt', component: GetfromytComponent },
+  { path: 'qanda', component: QandaComponent },
+  { path: 'wtbaudio', component: WtbaudioComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
@@ -38,6 +41,8 @@ const routes: Routes = [
     GetfromytComponent,
     BibversesComponent,
     AddVersesComponent,
+    QandaComponent,
+    AddQandaComponent,
   ],
   imports: [
     BrowserModule,

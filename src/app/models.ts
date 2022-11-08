@@ -9,6 +9,13 @@ export interface Book {
   id?: string;
   order: number;
 }
+
+export interface Qanda {
+  answer: string;
+  id?: string;
+  question: string;
+}
+
 export interface Track {
   book: string;
   duration: number;
