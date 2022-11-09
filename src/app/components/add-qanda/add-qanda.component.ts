@@ -20,6 +20,7 @@ export class AddQandaComponent implements OnInit {
     private fileService: FileService
   ) {
     this.form = this.fb.group({
+      serialno: [''],
       question: ['', Validators.required],
       answer: ['', Validators.required],
     });
@@ -40,6 +41,7 @@ export class AddQandaComponent implements OnInit {
     let newQanda: Partial<Qanda> = {};
     newQanda.question = this.form.value.question;
     newQanda.answer = this.form.value.answer;
+    newQanda.serialno = this.form.value.serialno;
     this.fileService.createQanda(newQanda);
   }
 

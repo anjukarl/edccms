@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -21,10 +22,13 @@ import { BibversesComponent } from './components/bibverses/bibverses.component';
 import { AddVersesComponent } from './components/add-verses/add-verses.component';
 import { QandaComponent } from './components/qanda/qanda.component';
 import { AddQandaComponent } from './components/add-qanda/add-qanda.component';
+import { DailywordComponent } from './components/dailyword/dailyword.component';
+import { AddDwComponent } from './components/add-dw/add-dw.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'bibverses', component: BibversesComponent },
+  { path: 'dailyword', component: DailywordComponent },
   { path: 'getfromyt', component: GetfromytComponent },
   { path: 'qanda', component: QandaComponent },
   { path: 'wtbaudio', component: WtbaudioComponent },
@@ -43,6 +47,8 @@ const routes: Routes = [
     AddVersesComponent,
     QandaComponent,
     AddQandaComponent,
+    DailywordComponent,
+    AddDwComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +60,7 @@ const routes: Routes = [
     MaterialModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
+    AngularEditorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

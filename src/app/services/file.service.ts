@@ -4,7 +4,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Track, Book, Videos, Bibverses, Qanda } from '../models';
+import { Track, Book, Videos, Bibverses, Qanda, DailyWord } from '../models';
 import { convertSnaps } from './utils';
 
 @Injectable({
@@ -17,6 +17,34 @@ export class FileService {
     private db: AngularFirestore,
     private storage: AngularFireStorage
   ) {}
+
+  /*
+    Daily Word text and audio
+  */
+
+  loadDword(): Observable<DailyWord[]> {
+    return this.db
+      .collection('dailyword')
+      .get()
+      .pipe(map((results) => convertSnaps<DailyWord>(results)));
+  }
+
+  deleteDword(dwordId: string) {
+    return from(this.db.doc(`dailyword/${dwordId}`).delete());
+  }
+
+  createDword(newDword: Partial<DailyWord>) {
+    let save$: Observable<any>;
+    save$ = from(this.db.collection('dailyword').add(newDword));
+    return save$.pipe(
+      map((res) => {
+        return {
+          id: res.id,
+          ...newDword,
+        };
+      })
+    );
+  }
 
   /*
     With the Bible audio tracks
@@ -91,7 +119,7 @@ export class FileService {
     return from(this.db.doc(`qanda/${qandaId}`).delete());
   }
 
-  createQanda(newQanda: Partial<Bibverses>) {
+  createQanda(newQanda: Partial<Qanda>) {
     let save$: Observable<any>;
     save$ = from(this.db.collection('qanda').add(newQanda));
     return save$.pipe(

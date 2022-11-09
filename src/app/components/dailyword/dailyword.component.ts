@@ -7,18 +7,16 @@ import { finalize } from 'rxjs';
 
 import { FileService } from '../../services/file.service';
 import { DialogService } from '../../services/dialog.service';
-import { Qanda } from '../../models';
-import { AddQandaComponent } from '../add-qanda/add-qanda.component';
+import { DailyWord } from '../../models';
+import { AddDwComponent } from '../add-dw/add-dw.component';
 
 @Component({
-  selector: 'app-qanda',
-  templateUrl: './qanda.component.html',
-  styleUrls: ['./qanda.component.css'],
+  selector: 'app-dailyword',
+  templateUrl: './dailyword.component.html',
+  styleUrls: ['./dailyword.component.css'],
 })
-export class QandaComponent implements OnInit {
-  qandas: Qanda[] = [];
-
-  columnsToDisplay = ['number', 'question', 'answer', 'actions'];
+export class DailywordComponent implements OnInit {
+  columnsToDisplay = ['title', 'actions'];
   dataSource!: MatTableDataSource<any>;
   loading = false;
   searchKey: string = '';
@@ -33,16 +31,16 @@ export class QandaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.reloadQandas();
+    this.reloadDword();
   }
 
-  reloadQandas() {
+  reloadDword() {
     this.loading = true;
     this.fileService
-      .loadQandas()
+      .loadDword()
       .pipe(finalize(() => (this.loading = false)))
-      .subscribe((qandaList) => {
-        this.dataSource = new MatTableDataSource(qandaList);
+      .subscribe((dwordList) => {
+        this.dataSource = new MatTableDataSource(dwordList);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       });
@@ -57,31 +55,31 @@ export class QandaComponent implements OnInit {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
 
-  addQanda() {
+  addDword() {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.minWidth = '800px';
+    dialogConfig.minWidth = '600px';
 
     this.dialog
-      .open(AddQandaComponent, dialogConfig)
+      .open(AddDwComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
-        this.reloadQandas();
+        this.reloadDword();
         this.onSearchClear();
       });
   }
 
-  deleteQanda(qanda: Qanda) {
+  deleteDword(dword: DailyWord) {
     this.dialogService
       .openConfirmDialog('Are you sure you want to delete?')
       .afterClosed()
       .subscribe((res) => {
         if (res) {
           this.fileService
-            .deleteQanda(qanda.id!)
-            .pipe(finalize(() => this.reloadQandas()))
+            .deleteDword(dword.id!)
+            .pipe(finalize(() => this.reloadDword()))
             .subscribe();
         }
       });

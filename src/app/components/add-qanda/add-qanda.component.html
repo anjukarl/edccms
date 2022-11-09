@@ -2,6 +2,9 @@
 
 <mat-dialog-content [formGroup]="form">
   <mat-form-field>
+    <input placeholder="Number" matInput formControlName="serialno" />
+  </mat-form-field>
+  <mat-form-field>
     <input placeholder="Question" matInput formControlName="question" />
     <mat-error *ngIf="question.invalid">Question is mandatory!</mat-error>
   </mat-form-field>

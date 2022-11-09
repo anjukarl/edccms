@@ -10,10 +10,17 @@ export interface Book {
   order: number;
 }
 
+export interface DailyWord {
+  id?: string;
+  text: string;
+  title: string;
+}
+
 export interface Qanda {
   answer: string;
   id?: string;
   question: string;
+  serialno: string;
 }
 
 export interface Track {
