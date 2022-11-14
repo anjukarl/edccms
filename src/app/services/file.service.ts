@@ -119,6 +119,10 @@ export class FileService {
     return from(this.db.doc(`qanda/${qandaId}`).delete());
   }
 
+  updateQanda(qandaId: string, changes: Partial<Qanda>): Observable<any> {
+    return from(this.db.doc(`qanda/${qandaId}`).update(changes));
+  }
+
   createQanda(newQanda: Partial<Qanda>) {
     let save$: Observable<any>;
     save$ = from(this.db.collection('qanda').add(newQanda));

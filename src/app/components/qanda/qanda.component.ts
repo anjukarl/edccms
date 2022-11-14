@@ -9,6 +9,7 @@ import { FileService } from '../../services/file.service';
 import { DialogService } from '../../services/dialog.service';
 import { Qanda } from '../../models';
 import { AddQandaComponent } from '../add-qanda/add-qanda.component';
+import { EditQandaComponent } from '../edit-qanda/edit-qanda.component';
 
 @Component({
   selector: 'app-qanda',
@@ -18,7 +19,7 @@ import { AddQandaComponent } from '../add-qanda/add-qanda.component';
 export class QandaComponent implements OnInit {
   qandas: Qanda[] = [];
 
-  columnsToDisplay = ['number', 'question', 'answer', 'actions'];
+  columnsToDisplay = ['number', 'question', 'actions'];
   dataSource!: MatTableDataSource<any>;
   loading = false;
   searchKey: string = '';
@@ -66,6 +67,23 @@ export class QandaComponent implements OnInit {
 
     this.dialog
       .open(AddQandaComponent, dialogConfig)
+      .afterClosed()
+      .subscribe(() => {
+        this.reloadQandas();
+        this.onSearchClear();
+      });
+  }
+
+  editQanda(qanda: Qanda) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '800px';
+    dialogConfig.data = qanda;
+
+    this.dialog
+      .open(EditQandaComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.reloadQandas();
