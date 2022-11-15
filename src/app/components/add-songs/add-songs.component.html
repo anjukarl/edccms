@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Edit Daily Word</h2>
+<h2 mat-dialog-title>Upload Song</h2>
 
 <mat-dialog-content [formGroup]="form">
   <mat-form-field>
@@ -9,7 +9,6 @@
     formControlName="text"
     [config]="editorConfig"
   ></angular-editor>
-  <mat-error *ngIf="text.invalid">Text is mandatory!</mat-error>
 </mat-dialog-content>
 
 <mat-dialog-actions>

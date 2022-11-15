@@ -12,6 +12,7 @@ import {
   Qanda,
   DailyWord,
   Bookpdf,
+  Songs,
 } from '../models';
 import { convertSnaps } from './utils';
 
@@ -26,6 +27,38 @@ export class FileService {
     private db: AngularFirestore,
     private storage: AngularFireStorage
   ) {}
+
+  /*
+    Songs  =====================================================
+  */
+
+  loadSongs(): Observable<Songs[]> {
+    return this.db
+      .collection('songs')
+      .get()
+      .pipe(map((results) => convertSnaps<Songs>(results)));
+  }
+
+  deleteSongs(songsId: string) {
+    return from(this.db.doc(`songs/${songsId}`).delete());
+  }
+
+  updateSongs(songsId: string, changes: Partial<Songs>): Observable<any> {
+    return from(this.db.doc(`songs/${songsId}`).update(changes));
+  }
+
+  createSongs(newSongs: Partial<Songs>) {
+    let save$: Observable<any>;
+    save$ = from(this.db.collection('songs').add(newSongs));
+    return save$.pipe(
+      map((res) => {
+        return {
+          id: res.id,
+          ...newSongs,
+        };
+      })
+    );
+  }
 
   /*
     Books  =====================================

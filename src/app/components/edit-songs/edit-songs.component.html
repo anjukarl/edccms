@@ -1,10 +1,11 @@
-<h2 mat-dialog-title>Edit Daily Word</h2>
+<h2 mat-dialog-title>Edit Song</h2>
 
 <mat-dialog-content [formGroup]="form">
   <mat-form-field>
     <input placeholder="Title" matInput formControlName="title" />
     <mat-error *ngIf="title.invalid">Title is mandatory!</mat-error>
   </mat-form-field>
+
   <angular-editor
     formControlName="text"
     [config]="editorConfig"
