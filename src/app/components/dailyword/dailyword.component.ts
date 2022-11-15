@@ -9,6 +9,7 @@ import { FileService } from '../../services/file.service';
 import { DialogService } from '../../services/dialog.service';
 import { DailyWord } from '../../models';
 import { AddDwComponent } from '../add-dw/add-dw.component';
+import { EditDwComponent } from '../edit-dw/edit-dw.component';
 
 @Component({
   selector: 'app-dailyword',
@@ -64,6 +65,23 @@ export class DailywordComponent implements OnInit {
 
     this.dialog
       .open(AddDwComponent, dialogConfig)
+      .afterClosed()
+      .subscribe(() => {
+        this.reloadDword();
+        this.onSearchClear();
+      });
+  }
+
+  updateDword(dword: DailyWord) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '600px';
+    dialogConfig.data = dword;
+
+    this.dialog
+      .open(EditDwComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.reloadDword();

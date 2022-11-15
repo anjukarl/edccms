@@ -33,6 +33,10 @@ export class FileService {
     return from(this.db.doc(`dailyword/${dwordId}`).delete());
   }
 
+  updateDword(dwordId: string, changes: Partial<DailyWord>): Observable<any> {
+    return from(this.db.doc(`dailyword/${dwordId}`).update(changes));
+  }
+
   createDword(newDword: Partial<DailyWord>) {
     let save$: Observable<any>;
     save$ = from(this.db.collection('dailyword').add(newDword));

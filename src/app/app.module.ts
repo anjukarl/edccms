@@ -25,6 +25,7 @@ import { AddQandaComponent } from './components/add-qanda/add-qanda.component';
 import { DailywordComponent } from './components/dailyword/dailyword.component';
 import { AddDwComponent } from './components/add-dw/add-dw.component';
 import { EditQandaComponent } from './components/edit-qanda/edit-qanda.component';
+import { EditDwComponent } from './components/edit-dw/edit-dw.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -51,6 +52,7 @@ const routes: Routes = [
     DailywordComponent,
     AddDwComponent,
     EditQandaComponent,
+    EditDwComponent,
   ],
   imports: [
     BrowserModule,
