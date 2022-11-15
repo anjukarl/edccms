@@ -26,10 +26,14 @@ import { DailywordComponent } from './components/dailyword/dailyword.component';
 import { AddDwComponent } from './components/add-dw/add-dw.component';
 import { EditQandaComponent } from './components/edit-qanda/edit-qanda.component';
 import { EditDwComponent } from './components/edit-dw/edit-dw.component';
+import { BooksComponent } from './components/books/books.component';
+import { AddBooksComponent } from './components/add-books/add-books.component';
+import { EditBooksComponent } from './components/edit-books/edit-books.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'bibverses', component: BibversesComponent },
+  { path: 'books', component: BooksComponent },
   { path: 'dailyword', component: DailywordComponent },
   { path: 'getfromyt', component: GetfromytComponent },
   { path: 'qanda', component: QandaComponent },
@@ -53,6 +57,9 @@ const routes: Routes = [
     AddDwComponent,
     EditQandaComponent,
     EditDwComponent,
+    BooksComponent,
+    AddBooksComponent,
+    EditBooksComponent,
   ],
   imports: [
     BrowserModule,

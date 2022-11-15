@@ -4,7 +4,15 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Track, Book, Videos, Bibverses, Qanda, DailyWord } from '../models';
+import {
+  Track,
+  Book,
+  Videos,
+  Bibverses,
+  Qanda,
+  DailyWord,
+  Bookpdf,
+} from '../models';
 import { convertSnaps } from './utils';
 
 @Injectable({
@@ -13,13 +21,48 @@ import { convertSnaps } from './utils';
 export class FileService {
   tracks: Track[] = [];
   private basePath = '/audioFiles';
+  private bookPath = '/books';
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage
   ) {}
 
   /*
-    Daily Word text and audio
+    Books  =====================================
+  */
+  loadBookpdfs(): Observable<Bookpdf[]> {
+    return this.db
+      .collection('bookpdfs')
+      .get()
+      .pipe(map((results) => convertSnaps<Bookpdf>(results)));
+  }
+
+  deleteBookpdf(bookpdfId: string, thumbname: string, filename: string) {
+    const storageRef = this.storage.ref(this.bookPath);
+    storageRef.child(thumbname).delete();
+    storageRef.child(filename).delete();
+    return from(this.db.doc(`bookpdfs/${bookpdfId}`).delete());
+  }
+
+  updateBookpdf(bookpdfId: string, changes: Partial<Bookpdf>): Observable<any> {
+    return from(this.db.doc(`bookpdfs/${bookpdfId}`).update(changes));
+  }
+
+  createBookpdf(newBookpdf: Partial<Bookpdf>) {
+    let save$: Observable<any>;
+    save$ = from(this.db.collection('bookpdfs').add(newBookpdf));
+    return save$.pipe(
+      map((res) => {
+        return {
+          id: res.id,
+          ...newBookpdf,
+        };
+      })
+    );
+  }
+
+  /*
+    Daily Word text and audio  =========================
   */
 
   loadDword(): Observable<DailyWord[]> {
@@ -51,7 +94,7 @@ export class FileService {
   }
 
   /*
-    With the Bible audio tracks
+    With the Bible audio tracks  ===========================
   */
 
   createTrack(newTrack: Partial<Track>) {
@@ -81,7 +124,7 @@ export class FileService {
   }
 
   /*
-    Bible verses for hero images
+    Bible verses for hero images  ==================================
   */
 
   loadVerses(): Observable<Bibverses[]> {
@@ -109,7 +152,7 @@ export class FileService {
   }
 
   /*
-    Questions & Answers
+    Questions & Answers  ======================================
   */
 
   loadQandas(): Observable<Qanda[]> {
@@ -141,7 +184,7 @@ export class FileService {
   }
 
   /*
-    Getting Bible books from database for lookup fields
+    Getting Bible books from database for lookup fields  ============
   */
 
   loadBooks(): Observable<Book[]> {
@@ -159,7 +202,7 @@ export class FileService {
   }
 
   /*
-    Updating videos from YouTube to Firestore
+    Updating videos from YouTube to Firestore  =======================
   */
 
   createVideos(newVideos: Videos[]) {

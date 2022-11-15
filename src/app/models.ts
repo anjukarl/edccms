@@ -10,6 +10,16 @@ export interface Book {
   order: number;
 }
 
+export interface Bookpdf {
+  author: string;
+  filename: string;
+  id?: string;
+  filepath: string;
+  thumbpath: string;
+  thumbname: string;
+  title: string;
+}
+
 export interface DailyWord {
   id?: string;
   text: string;

@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Upload Audio File</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input placeholder="Author" matInput formControlName="author" />
+    <mat-error *ngIf="author.invalid">Author is mandatory!</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="Title" matInput formControlName="title" />
+    <mat-error *ngIf="title.invalid">Title is mandatory!</mat-error>
+  </mat-form-field>
+  <br /><br />
+  <div *ngIf="form.valid" (click)="upload1.click()">
+    <button mat-raised-button color="primary">Select Thumbnail</button>
+    <input
+      #upload1
+      type="file"
+      (change)="uploadThumb($event)"
+      style="display: none"
+    />
+  </div>
+  <div><mat-divider></mat-divider><br /></div>
+  <div>
+    <h4 *ngIf="thumbname">Uploading... {{ thumbname }}</h4>
+  </div>
+  <div *ngIf="percentageChanges1$ | async as percentage">
+    <mat-progress-bar mode="determinate" [value]="percentage">
+    </mat-progress-bar>
+    <span> {{ percentage / 100 | percent }} </span>
+  </div>
+  <br />
+  <div *ngIf="thumbname" (click)="upload2.click()">
+    <button mat-raised-button color="primary">Select PDF</button>
+    <input
+      #upload2
+      type="file"
+      (change)="uploadPdf($event)"
+      style="display: none"
+    />
+  </div>
+  <div><mat-divider></mat-divider><br /></div>
+  <div>
+    <h4 *ngIf="pdfname">Uploading... {{ pdfname }}</h4>
+  </div>
+  <div *ngIf="percentageChanges2$ | async as percentage">
+    <mat-progress-bar mode="determinate" [value]="percentage">
+    </mat-progress-bar>
+    <span> {{ percentage / 100 | percent }} </span>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button *ngIf="canClose" mat-raised-button color="primary" (click)="close()">
+    Close
+  </button>
+</mat-dialog-actions>
