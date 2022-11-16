@@ -41,7 +41,7 @@ export class AddQandaComponent implements OnInit {
     let newQanda: Partial<Qanda> = {};
     newQanda.question = this.form.value.question;
     newQanda.answer = this.form.value.answer;
-    newQanda.serialno = this.form.value.serialno;
+    newQanda.serialno = +this.form.value.serialno;
     this.fileService.createQanda(newQanda);
   }
 

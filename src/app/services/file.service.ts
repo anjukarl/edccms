@@ -13,6 +13,7 @@ import {
   DailyWord,
   Bookpdf,
   Songs,
+  Message,
 } from '../models';
 import { convertSnaps } from './utils';
 
@@ -27,6 +28,38 @@ export class FileService {
     private db: AngularFirestore,
     private storage: AngularFireStorage
   ) {}
+
+  /*
+    Messages  =====================================================
+  */
+
+  loadMessages(): Observable<Message[]> {
+    return this.db
+      .collection('messages')
+      .get()
+      .pipe(map((results) => convertSnaps<Message>(results)));
+  }
+
+  deleteMessage(messageId: string) {
+    return from(this.db.doc(`messages/${messageId}`).delete());
+  }
+
+  updateMessage(messageId: string, changes: Partial<Message>): Observable<any> {
+    return from(this.db.doc(`messages/${messageId}`).update(changes));
+  }
+
+  createMessage(newMessage: Partial<Message>) {
+    let save$: Observable<any>;
+    save$ = from(this.db.collection('messages').add(newMessage));
+    return save$.pipe(
+      map((res) => {
+        return {
+          id: res.id,
+          ...newMessage,
+        };
+      })
+    );
+  }
 
   /*
     Songs  =====================================================
@@ -63,6 +96,7 @@ export class FileService {
   /*
     Books  =====================================
   */
+
   loadBookpdfs(): Observable<Bookpdf[]> {
     return this.db
       .collection('bookpdfs')
@@ -190,7 +224,7 @@ export class FileService {
 
   loadQandas(): Observable<Qanda[]> {
     return this.db
-      .collection('qanda')
+      .collection('qanda', (ref) => ref.orderBy('serialno'))
       .get()
       .pipe(map((results) => convertSnaps<Qanda>(results)));
   }

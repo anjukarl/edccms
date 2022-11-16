@@ -32,6 +32,9 @@ import { EditBooksComponent } from './components/edit-books/edit-books.component
 import { SongsComponent } from './components/songs/songs.component';
 import { AddSongsComponent } from './components/add-songs/add-songs.component';
 import { EditSongsComponent } from './components/edit-songs/edit-songs.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { AddMessagesComponent } from './components/add-messages/add-messages.component';
+import { EditMessagesComponent } from './components/edit-messages/edit-messages.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -39,6 +42,7 @@ const routes: Routes = [
   { path: 'books', component: BooksComponent },
   { path: 'dailyword', component: DailywordComponent },
   { path: 'getfromyt', component: GetfromytComponent },
+  { path: 'messages', component: MessagesComponent },
   { path: 'qanda', component: QandaComponent },
   { path: 'songs', component: SongsComponent },
   { path: 'wtbaudio', component: WtbaudioComponent },
@@ -67,6 +71,9 @@ const routes: Routes = [
     SongsComponent,
     AddSongsComponent,
     EditSongsComponent,
+    MessagesComponent,
+    AddMessagesComponent,
+    EditMessagesComponent,
   ],
   imports: [
     BrowserModule,

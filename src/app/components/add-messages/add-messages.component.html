@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Upload Other's Messages Info</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input placeholder="Speaker Name" matInput formControlName="speaker" />
+    <mat-error *ngIf="speaker.invalid">Speaker name is mandatory!</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="Message Title" matInput formControlName="title" />
+    <mat-error *ngIf="title.invalid">Title is mandatory!</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="Video URL" matInput formControlName="videoUrl" />
+    <mat-error *ngIf="videoUrl.invalid">Video URL is mandatory!</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button *ngIf="form.valid" mat-raised-button color="primary" (click)="save()">
+    Save
+  </button>
+  <button mat-raised-button color="accent" (click)="cancel()">Cancel</button>
+</mat-dialog-actions>

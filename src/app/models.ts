@@ -26,11 +26,18 @@ export interface DailyWord {
   title: string;
 }
 
+export interface Message {
+  id?: string;
+  speaker: string;
+  title: string;
+  videoUrl: string;
+}
+
 export interface Qanda {
   answer: string;
   id?: string;
   question: string;
-  serialno: string;
+  serialno: number;
 }
 
 export interface Songs {
