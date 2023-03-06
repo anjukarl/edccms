@@ -51,6 +51,7 @@ export class AddSongsComponent implements OnInit {
     private fileService: FileService
   ) {
     this.form = this.fb.group({
+      serialno: ['', Validators.required],
       title: ['', Validators.required],
       text: ['', Validators.required],
     });
@@ -69,6 +70,7 @@ export class AddSongsComponent implements OnInit {
 
   saveSongsInfo() {
     let newSong: Partial<Songs> = {};
+    newSong.serialno = +this.form.value.serialno;
     newSong.title = this.form.value.title;
     newSong.text = this.form.value.text;
     this.fileService.createSongs(newSong);
@@ -80,5 +82,9 @@ export class AddSongsComponent implements OnInit {
 
   get text() {
     return this.form.controls['text'];
+  }
+
+  get serialno() {
+    return this.form.controls['serialno'];
   }
 }

@@ -17,7 +17,7 @@ import { EditDwComponent } from '../edit-dw/edit-dw.component';
   styleUrls: ['./dailyword.component.css'],
 })
 export class DailywordComponent implements OnInit {
-  columnsToDisplay = ['title', 'actions'];
+  columnsToDisplay = ['serialno', 'title', 'actions'];
   dataSource!: MatTableDataSource<any>;
   loading = false;
   searchKey: string = '';

@@ -54,6 +54,7 @@ export class EditSongsComponent implements OnInit {
   ) {
     this.song = song;
     this.form = this.fb.group({
+      serialno: [song.serialno, Validators.required],
       title: [song.title, Validators.required],
       text: [song.text, Validators.required],
     });
@@ -78,5 +79,9 @@ export class EditSongsComponent implements OnInit {
 
   get text() {
     return this.form.controls['text'];
+  }
+
+  get serialno() {
+    return this.form.controls['serialno'];
   }
 }

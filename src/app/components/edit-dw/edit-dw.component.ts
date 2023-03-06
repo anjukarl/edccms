@@ -54,6 +54,7 @@ export class EditDwComponent implements OnInit {
   ) {
     this.dword = dword;
     this.form = this.fb.group({
+      serialno: [dword.serialno, Validators.required],
       title: [dword.title, Validators.required],
       text: [dword.text, Validators.required],
     });
@@ -78,5 +79,9 @@ export class EditDwComponent implements OnInit {
 
   get text() {
     return this.form.controls['text'];
+  }
+
+  get serialno() {
+    return this.form.controls['serialno'];
   }
 }

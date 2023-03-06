@@ -51,6 +51,7 @@ export class AddDwComponent implements OnInit {
     private fileService: FileService
   ) {
     this.form = this.fb.group({
+      serialno: ['', Validators.required],
       title: ['', Validators.required],
       text: ['', Validators.required],
     });
@@ -69,6 +70,7 @@ export class AddDwComponent implements OnInit {
 
   saveVerseInfo() {
     let newDword: Partial<DailyWord> = {};
+    newDword.serialno = +this.form.value.serialno;
     newDword.title = this.form.value.title;
     newDword.text = this.form.value.text;
     this.fileService.createDword(newDword);
@@ -80,5 +82,9 @@ export class AddDwComponent implements OnInit {
 
   get text() {
     return this.form.controls['text'];
+  }
+
+  get serialno() {
+    return this.form.controls['serialno'];
   }
 }

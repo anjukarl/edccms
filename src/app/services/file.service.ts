@@ -67,7 +67,7 @@ export class FileService {
 
   loadSongs(): Observable<Songs[]> {
     return this.db
-      .collection('songs')
+      .collection('songs', (ref) => ref.orderBy('serialno', 'desc'))
       .get()
       .pipe(map((results) => convertSnaps<Songs>(results)));
   }
@@ -134,7 +134,7 @@ export class FileService {
 
   loadDword(): Observable<DailyWord[]> {
     return this.db
-      .collection('dailyword')
+      .collection('dailyword', (ref) => ref.orderBy('serialno', 'desc'))
       .get()
       .pipe(map((results) => convertSnaps<DailyWord>(results)));
   }

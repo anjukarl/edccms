@@ -17,3 +17,7 @@ mat-toolbar {
   color: white;
   box-shadow: 2px 5px 8px rgb(0, 0, 0, 0.6);
 }
+
+button {
+  width: 60%;
+}

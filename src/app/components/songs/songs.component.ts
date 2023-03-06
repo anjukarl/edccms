@@ -17,7 +17,7 @@ import { EditSongsComponent } from '../edit-songs/edit-songs.component';
   styleUrls: ['./songs.component.css'],
 })
 export class SongsComponent implements OnInit {
-  columnsToDisplay = ['title', 'actions'];
+  columnsToDisplay = ['serialno', 'title', 'actions'];
   dataSource!: MatTableDataSource<any>;
   loading = false;
   searchKey: string = '';

@@ -24,6 +24,7 @@ export interface DailyWord {
   id?: string;
   text: string;
   title: string;
+  serialno: number;
 }
 
 export interface Message {
@@ -44,6 +45,7 @@ export interface Songs {
   id?: string;
   text: string;
   title: string;
+  serialno: number;
 }
 
 export interface Track {
