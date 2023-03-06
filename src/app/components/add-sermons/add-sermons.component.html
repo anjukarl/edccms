@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Upload Audio Sermon File</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <mat-select placeholder="Select Series" formControlName="series">
+      <ng-container *ngFor="let series of series$ | async">
+        <mat-option [value]="series.text">
+          {{ series.text }}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input placeholder="Title" matInput formControlName="title" />
+    <mat-error *ngIf="title.invalid">Title is mandatory!</mat-error>
+  </mat-form-field>
+
+  <div *ngIf="form.valid" (click)="upload.click()">
+    <button mat-raised-button color="primary">Select File</button>
+    <input
+      #upload
+      type="file"
+      (change)="uploadSermon($event)"
+      style="display: none"
+    />
+  </div>
+  <div>
+    <mat-divider></mat-divider>
+  </div>
+  <div>
+    <h4 *ngIf="filen">Uploading... {{ filen }}</h4>
+  </div>
+  <div *ngIf="percentageChanges$ | async as percentage">
+    <mat-progress-bar mode="determinate" [value]="percentage">
+    </mat-progress-bar>
+    <span> {{ percentage / 100 | percent }} </span>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button *ngIf="!canClose" mat-raised-button color="accent">Saving...</button>
+  <button *ngIf="canClose" mat-raised-button color="primary" (click)="close()">
+    Close
+  </button>
+</mat-dialog-actions>

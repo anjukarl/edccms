@@ -1,23 +1,23 @@
-.container {
-  width: 60%;
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.table {
   margin: auto;
-  margin-top: 5vh;
+  padding-top: 10px;
+  width: 80%;
 }
 
-mat-grid-tile {
-  background: #eee;
+.mat-row {
+  height: auto;
 }
 
-mat-grid-list {
-  display: flex;
+h2 {
+  text-align: center;
 }
 
 mat-toolbar {
   background-color: rgb(86, 150, 113, 0.8);
   color: white;
   box-shadow: 2px 5px 8px rgb(0, 0, 0, 0.6);
-}
-
-button {
-  width: 70%;
 }

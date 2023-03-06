@@ -35,6 +35,11 @@ import { EditSongsComponent } from './components/edit-songs/edit-songs.component
 import { MessagesComponent } from './components/messages/messages.component';
 import { AddMessagesComponent } from './components/add-messages/add-messages.component';
 import { EditMessagesComponent } from './components/edit-messages/edit-messages.component';
+import { SermonaudioComponent } from './components/sermonaudio/sermonaudio.component';
+import { SermonseriesComponent } from './components/sermonseries/sermonseries.component';
+import { AddSeriesComponent } from './components/add-series/add-series.component';
+import { EditSeriesComponent } from './components/edit-series/edit-series.component';
+import { AddSermonsComponent } from './components/add-sermons/add-sermons.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -46,6 +51,8 @@ const routes: Routes = [
   { path: 'qanda', component: QandaComponent },
   { path: 'songs', component: SongsComponent },
   { path: 'wtbaudio', component: WtbaudioComponent },
+  { path: 'sermonaudio', component: SermonaudioComponent },
+  { path: 'sermonseries', component: SermonseriesComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
@@ -74,6 +81,11 @@ const routes: Routes = [
     MessagesComponent,
     AddMessagesComponent,
     EditMessagesComponent,
+    SermonaudioComponent,
+    SermonseriesComponent,
+    AddSeriesComponent,
+    EditSeriesComponent,
+    AddSermonsComponent,
   ],
   imports: [
     BrowserModule,

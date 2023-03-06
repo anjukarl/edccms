@@ -14,6 +14,8 @@ import {
   Bookpdf,
   Songs,
   Message,
+  Series,
+  Sermon,
 } from '../models';
 import { convertSnaps } from './utils';
 
@@ -24,10 +26,77 @@ export class FileService {
   tracks: Track[] = [];
   private basePath = '/audioFiles';
   private bookPath = '/books';
+  private sermonPath = '/audioSermons';
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage
   ) {}
+
+  /*
+    Audio Sermons  ==================================
+  */
+
+  loadSermons(): Observable<Sermon[]> {
+    return this.db
+      .collection('sermons', (ref) => ref.orderBy('series'))
+      .get()
+      .pipe(map((results) => convertSnaps<Sermon>(results)));
+  }
+
+  deleteSermon(sermonId: string, sermonName: string) {
+    const storageRef = this.storage.ref(this.sermonPath);
+    storageRef.child(sermonName).delete();
+    return from(this.db.doc(`sermons/${sermonId}`).delete());
+  }
+
+  // updateSermon(sermonId: string, changes: Partial<Sermon>): Observable<any> {
+  //   return from(this.db.doc(`sermons/${sermonId}`).update(changes));
+  // }
+
+  createSermon(newSermon: Partial<Sermon>) {
+    let save$: Observable<any>;
+    save$ = from(this.db.collection('sermons').add(newSermon));
+    return save$.pipe(
+      map((res) => {
+        return {
+          id: res.id,
+          ...newSermon,
+        };
+      })
+    );
+  }
+
+  /*
+    Sermon Series Titles  ==================================
+  */
+
+  loadSeries(): Observable<Series[]> {
+    return this.db
+      .collection('series', (ref) => ref.orderBy('text'))
+      .get()
+      .pipe(map((results) => convertSnaps<Series>(results)));
+  }
+
+  deleteSeries(seriesId: string) {
+    return from(this.db.doc(`series/${seriesId}`).delete());
+  }
+
+  updateSeries(seriesId: string, changes: Partial<Series>): Observable<any> {
+    return from(this.db.doc(`series/${seriesId}`).update(changes));
+  }
+
+  createSeries(newSeries: Partial<Series>) {
+    let save$: Observable<any>;
+    save$ = from(this.db.collection('series').add(newSeries));
+    return save$.pipe(
+      map((res) => {
+        return {
+          id: res.id,
+          ...newSeries,
+        };
+      })
+    );
+  }
 
   /*
     Messages  =====================================================
