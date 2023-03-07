@@ -41,6 +41,20 @@ export interface Qanda {
   serialno: number;
 }
 
+export interface Series {
+  id?: string;
+  text: string;
+}
+
+export interface Sermon {
+  id: string;
+  fileName: string;
+  title: string;
+  series: string;
+  description: string;
+  path: string;
+}
+
 export interface Songs {
   id?: string;
   text: string;
@@ -56,19 +70,6 @@ export interface Track {
   name: string;
   namk: string;
   path: string;
-}
-
-export interface Sermon {
-  id: string;
-  fileName: string;
-  title: string;
-  series: string;
-  path: string;
-}
-
-export interface Series {
-  id?: string;
-  text: string;
 }
 
 export interface VidData {

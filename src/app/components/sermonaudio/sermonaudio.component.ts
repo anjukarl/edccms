@@ -62,7 +62,7 @@ export class SermonaudioComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.minWidth = '400px';
+    dialogConfig.minWidth = '600px';
 
     this.dialog
       .open(AddSermonsComponent, dialogConfig)

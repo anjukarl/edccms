@@ -30,6 +30,7 @@ export class AddSermonsComponent implements OnInit {
     this.form = this.fb.group({
       series: [''],
       title: ['', Validators.required],
+      description: [''],
     });
   }
 
@@ -72,6 +73,7 @@ export class AddSermonsComponent implements OnInit {
     let newSermon: Partial<Sermon> = {};
     newSermon.series = this.form.value.series;
     newSermon.title = this.form.value.title;
+    newSermon.description = this.form.value.description;
     newSermon.path = dlurl;
     newSermon.fileName = fileName;
     this.fileService.createSermon(newSermon);
