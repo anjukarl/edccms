@@ -49,9 +49,9 @@ export class FileService {
     return from(this.db.doc(`sermons/${sermonId}`).delete());
   }
 
-  // updateSermon(sermonId: string, changes: Partial<Sermon>): Observable<any> {
-  //   return from(this.db.doc(`sermons/${sermonId}`).update(changes));
-  // }
+  updateSermon(sermonId: string, changes: Partial<Sermon>): Observable<any> {
+    return from(this.db.doc(`sermons/${sermonId}`).update(changes));
+  }
 
   createSermon(newSermon: Partial<Sermon>) {
     let save$: Observable<any>;

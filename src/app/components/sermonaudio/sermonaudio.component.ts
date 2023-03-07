@@ -9,6 +9,7 @@ import { Sermon } from '../../models';
 import { FileService } from '../../services/file.service';
 import { DialogService } from '../../services/dialog.service';
 import { AddSermonsComponent } from '../../components/add-sermons/add-sermons.component';
+import { EditSermonsComponent } from '../edit-sermons/edit-sermons.component';
 
 @Component({
   selector: 'app-sermonaudio',
@@ -66,6 +67,23 @@ export class SermonaudioComponent implements OnInit {
 
     this.dialog
       .open(AddSermonsComponent, dialogConfig)
+      .afterClosed()
+      .subscribe(() => {
+        this.reloadSermons();
+        this.onSearchClear();
+      });
+  }
+
+  editSermon(sermon: Sermon) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '700px';
+    dialogConfig.data = sermon;
+
+    this.dialog
+      .open(EditSermonsComponent, dialogConfig)
       .afterClosed()
       .subscribe(() => {
         this.reloadSermons();

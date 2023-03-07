@@ -40,6 +40,7 @@ import { SermonseriesComponent } from './components/sermonseries/sermonseries.co
 import { AddSeriesComponent } from './components/add-series/add-series.component';
 import { EditSeriesComponent } from './components/edit-series/edit-series.component';
 import { AddSermonsComponent } from './components/add-sermons/add-sermons.component';
+import { EditSermonsComponent } from './components/edit-sermons/edit-sermons.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -86,6 +87,7 @@ const routes: Routes = [
     AddSeriesComponent,
     EditSeriesComponent,
     AddSermonsComponent,
+    EditSermonsComponent,
   ],
   imports: [
     BrowserModule,
