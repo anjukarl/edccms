@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 import { FileService } from '../../services/file.service';
 import { Qanda } from '../../models';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-add-qanda',
@@ -13,6 +14,7 @@ import { Qanda } from '../../models';
 export class AddQandaComponent implements OnInit {
   form!: FormGroup;
   canClose = true;
+  newserial = 0;
 
   constructor(
     private dialogRef: MatDialogRef<AddQandaComponent>,
@@ -20,13 +22,25 @@ export class AddQandaComponent implements OnInit {
     private fileService: FileService
   ) {
     this.form = this.fb.group({
-      serialno: [''],
+      serialno: [this.newserial, Validators.required],
       question: ['', Validators.required],
       answer: ['', Validators.required],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fileService
+      .loadQandas()
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.newserial = res[0].serialno + 1;
+        this.form = this.fb.group({
+          serialno: [this.newserial, Validators.required],
+          question: ['', Validators.required],
+          answer: ['', Validators.required],
+        });
+      });
+  }
 
   save() {
     this.saveVerseInfo();

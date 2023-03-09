@@ -14,6 +14,7 @@ import {
   Bookpdf,
   Songs,
   Message,
+  MessageAudio,
   Series,
   Sermon,
 } from '../models';
@@ -27,10 +28,48 @@ export class FileService {
   private basePath = '/audioFiles';
   private bookPath = '/books';
   private sermonPath = '/audioSermons';
+  private messAudioPath = '/messagesaudio';
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage
   ) {}
+
+  /*
+    Other's messages - AUDIO  ==================================
+  */
+
+  loadMessagesaudio(): Observable<MessageAudio[]> {
+    return this.db
+      .collection('messagesaudio', (ref) => ref.orderBy('speaker'))
+      .get()
+      .pipe(map((results) => convertSnaps<MessageAudio>(results)));
+  }
+
+  deleteMessageaudio(messaudioId: string, messageName: string) {
+    const storageRef = this.storage.ref(this.messAudioPath);
+    storageRef.child(messageName).delete();
+    return from(this.db.doc(`messagesaudio/${messaudioId}`).delete());
+  }
+
+  updateMessageaudio(
+    messaudioId: string,
+    changes: Partial<MessageAudio>
+  ): Observable<any> {
+    return from(this.db.doc(`messagesaudio/${messaudioId}`).update(changes));
+  }
+
+  createMessageaudio(newmessAudio: Partial<MessageAudio>) {
+    let save$: Observable<any>;
+    save$ = from(this.db.collection('messagesaudio').add(newmessAudio));
+    return save$.pipe(
+      map((res) => {
+        return {
+          id: res.id,
+          ...newmessAudio,
+        };
+      })
+    );
+  }
 
   /*
     Audio Sermons  ==================================
@@ -293,7 +332,7 @@ export class FileService {
 
   loadQandas(): Observable<Qanda[]> {
     return this.db
-      .collection('qanda', (ref) => ref.orderBy('serialno'))
+      .collection('qanda', (ref) => ref.orderBy('serialno', 'desc'))
       .get()
       .pipe(map((results) => convertSnaps<Qanda>(results)));
   }

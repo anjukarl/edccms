@@ -64,6 +64,7 @@ export class EditSongsComponent implements OnInit {
 
   save() {
     const changes = this.form.value;
+    changes.serialno = +changes.serialno;
     this.fileService.updateSongs(this.song.id!, changes).subscribe(() => {
       this.dialogRef.close(changes);
     });

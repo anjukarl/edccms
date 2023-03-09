@@ -2,11 +2,21 @@
 
 <mat-dialog-content [formGroup]="form">
   <mat-form-field>
-    <input placeholder="Serial No" matInput formControlName="serialno" />
+    <input
+      [readonly]="true"
+      placeholder="Serial No"
+      matInput
+      formControlName="serialno"
+    />
     <mat-error *ngIf="serialno.invalid">Serial No is mandatory!</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input placeholder="Title" matInput formControlName="title" />
+    <input
+      placeholder="Title"
+      matInput
+      formControlName="title"
+      cdkFocusInitial
+    />
     <mat-error *ngIf="title.invalid">Title is mandatory!</mat-error>
   </mat-form-field>
   <angular-editor

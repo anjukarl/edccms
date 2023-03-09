@@ -5,6 +5,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 import { FileService } from '../../services/file.service';
 import { Songs } from '../../models';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-add-songs',
@@ -14,6 +15,7 @@ import { Songs } from '../../models';
 export class AddSongsComponent implements OnInit {
   form!: FormGroup;
   canClose = true;
+  newserial = 0;
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -51,13 +53,25 @@ export class AddSongsComponent implements OnInit {
     private fileService: FileService
   ) {
     this.form = this.fb.group({
-      serialno: ['', Validators.required],
+      serialno: [this.newserial, Validators.required],
       title: ['', Validators.required],
       text: ['', Validators.required],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fileService
+      .loadSongs()
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.newserial = res[0].serialno + 1;
+        this.form = this.fb.group({
+          serialno: [this.newserial, Validators.required],
+          title: ['', Validators.required],
+          text: ['', Validators.required],
+        });
+      });
+  }
 
   save() {
     this.saveSongsInfo();

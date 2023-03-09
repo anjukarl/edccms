@@ -5,6 +5,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 import { FileService } from '../../services/file.service';
 import { DailyWord } from '../../models';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-add-dw',
@@ -14,6 +15,7 @@ import { DailyWord } from '../../models';
 export class AddDwComponent implements OnInit {
   form!: FormGroup;
   canClose = true;
+  newserial = 0;
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -51,13 +53,25 @@ export class AddDwComponent implements OnInit {
     private fileService: FileService
   ) {
     this.form = this.fb.group({
-      serialno: ['', Validators.required],
+      serialno: [this.newserial, Validators.required],
       title: ['', Validators.required],
       text: ['', Validators.required],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fileService
+      .loadDword()
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.newserial = res[0].serialno + 1;
+        this.form = this.fb.group({
+          serialno: [this.newserial, Validators.required],
+          title: ['', Validators.required],
+          text: ['', Validators.required],
+        });
+      });
+  }
 
   save() {
     this.saveVerseInfo();
@@ -70,7 +84,8 @@ export class AddDwComponent implements OnInit {
 
   saveVerseInfo() {
     let newDword: Partial<DailyWord> = {};
-    newDword.serialno = +this.form.value.serialno;
+    // newDword.serialno = +this.form.value.serialno;
+    newDword.serialno = this.newserial;
     newDword.title = this.form.value.title;
     newDword.text = this.form.value.text;
     this.fileService.createDword(newDword);

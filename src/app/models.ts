@@ -34,6 +34,14 @@ export interface Message {
   videoUrl: string;
 }
 
+export interface MessageAudio {
+  id: string;
+  fileName: string;
+  title: string;
+  speaker: string;
+  path: string;
+}
+
 export interface Qanda {
   answer: string;
   id?: string;
