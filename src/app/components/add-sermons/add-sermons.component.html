@@ -64,4 +64,12 @@
   <button *ngIf="canClose" mat-raised-button color="primary" (click)="close()">
     Close
   </button>
+  <button
+    *ngIf="urlAvailable"
+    mat-raised-button
+    color="primary"
+    (click)="saveSermon()"
+  >
+    Save
+  </button>
 </mat-dialog-actions>

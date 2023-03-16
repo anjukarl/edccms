@@ -41,9 +41,6 @@ export class AddSermonsComponent implements OnInit {
   }
 
   close() {
-    if (this.urlAvailable) {
-      this.saveSermon();
-    }
     this.dialogRef.close();
   }
 
@@ -101,6 +98,7 @@ export class AddSermonsComponent implements OnInit {
     newSermon.videoUrl = this.form.value.videoUrl;
     newSermon.fileName = '';
     this.fileService.createSermon(newSermon);
+    this.dialogRef.close();
   }
 
   get title() {
