@@ -83,8 +83,10 @@ export class FileService {
   }
 
   deleteSermon(sermonId: string, sermonName: string) {
-    const storageRef = this.storage.ref(this.sermonPath);
-    storageRef.child(sermonName).delete();
+    if (sermonName.length > 0) {
+      const storageRef = this.storage.ref(this.sermonPath);
+      storageRef.child(sermonName).delete();
+    }
     return from(this.db.doc(`sermons/${sermonId}`).delete());
   }
 

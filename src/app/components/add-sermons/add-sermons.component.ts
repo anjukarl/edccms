@@ -20,6 +20,7 @@ export class AddSermonsComponent implements OnInit {
   series$!: Observable<Series[]>;
   filen = '';
   canClose = true;
+  urlAvailable = false;
 
   constructor(
     private dialogRef: MatDialogRef<AddSermonsComponent>,
@@ -31,6 +32,7 @@ export class AddSermonsComponent implements OnInit {
       series: [''],
       title: ['', Validators.required],
       description: [''],
+      videoUrl: [''],
     });
   }
 
@@ -39,7 +41,18 @@ export class AddSermonsComponent implements OnInit {
   }
 
   close() {
+    if (this.urlAvailable) {
+      this.saveSermon();
+    }
     this.dialogRef.close();
+  }
+
+  onUrlAvailable() {
+    if (this.form.value.videoUrl.length > 0) {
+      this.urlAvailable = true;
+    } else {
+      this.urlAvailable = false;
+    }
   }
 
   uploadSermon(event: any) {
@@ -74,8 +87,19 @@ export class AddSermonsComponent implements OnInit {
     newSermon.series = this.form.value.series;
     newSermon.title = this.form.value.title;
     newSermon.description = this.form.value.description;
+    newSermon.videoUrl = this.form.value.videoUrl;
     newSermon.path = dlurl;
     newSermon.fileName = fileName;
+    this.fileService.createSermon(newSermon);
+  }
+
+  saveSermon() {
+    let newSermon: Partial<Sermon> = {};
+    newSermon.series = this.form.value.series;
+    newSermon.title = this.form.value.title;
+    newSermon.description = this.form.value.description;
+    newSermon.videoUrl = this.form.value.videoUrl;
+    newSermon.fileName = '';
     this.fileService.createSermon(newSermon);
   }
 

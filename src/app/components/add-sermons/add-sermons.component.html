@@ -26,25 +26,36 @@
     ></textarea>
   </mat-form-field>
 
-  <div *ngIf="form.valid" (click)="upload.click()">
-    <button mat-raised-button color="primary">Select Audio File</button>
+  <mat-form-field>
     <input
-      #upload
-      type="file"
-      (change)="uploadSermon($event)"
-      style="display: none"
+      placeholder="Video URL"
+      matInput
+      formControlName="videoUrl"
+      (change)="onUrlAvailable()"
     />
-  </div>
-  <div>
-    <mat-divider></mat-divider>
-  </div>
-  <div>
-    <h4 *ngIf="filen">Uploading... {{ filen }}</h4>
-  </div>
-  <div *ngIf="percentageChanges$ | async as percentage">
-    <mat-progress-bar mode="determinate" [value]="percentage">
-    </mat-progress-bar>
-    <span> {{ percentage / 100 | percent }} </span>
+  </mat-form-field>
+
+  <div *ngIf="form.valid && !urlAvailable">
+    <div (click)="upload.click()">
+      <button mat-raised-button color="primary">Select Audio File</button>
+      <input
+        #upload
+        type="file"
+        (change)="uploadSermon($event)"
+        style="display: none"
+      />
+    </div>
+    <div>
+      <mat-divider></mat-divider>
+    </div>
+    <div>
+      <h4 *ngIf="filen">Uploading... {{ filen }}</h4>
+    </div>
+    <div *ngIf="percentageChanges$ | async as percentage">
+      <mat-progress-bar mode="determinate" [value]="percentage">
+      </mat-progress-bar>
+      <span> {{ percentage / 100 | percent }} </span>
+    </div>
   </div>
 </mat-dialog-content>
 

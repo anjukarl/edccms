@@ -28,6 +28,7 @@ export class EditSermonsComponent implements OnInit {
       series: [sermon.series],
       title: [sermon.title, Validators.required],
       description: [sermon.description],
+      videoUrl: [sermon.videoUrl],
     });
   }
 
