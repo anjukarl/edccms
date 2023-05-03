@@ -17,6 +17,7 @@ import {
   MessageAudio,
   Series,
   Sermon,
+  YTPlaylist,
 } from '../models';
 import { convertSnaps } from './utils';
 
@@ -388,6 +389,16 @@ export class FileService {
     for (const video of newVideos) {
       const docRef = this.db.collection('vmedia').doc().ref;
       batch.set(docRef, video);
+    }
+    return batch.commit();
+  }
+
+  createYTPlaylist(newPlaylist: YTPlaylist[]) {
+    let batch = this.db.firestore.batch();
+
+    for (const playlist of newPlaylist) {
+      const docRef = this.db.collection('vplaylist').doc().ref;
+      batch.set(docRef, playlist);
     }
     return batch.commit();
   }

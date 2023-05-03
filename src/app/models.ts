@@ -99,3 +99,40 @@ export interface Videos {
   type?: string;
   videoId: string;
 }
+
+export interface YTPlaylist {
+  id?: string;
+  playlistId: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+}
+
+export interface VidPlaylist {
+  items: [
+    {
+      id: string;
+      snippet: {
+        title: string;
+        description: string;
+        thumbnails: { default: { url: string } };
+      };
+    }
+  ];
+  nextPageToken: string;
+}
+
+export interface VidPlaylistItems {
+  items: [
+    {
+      snippet: {
+        title: string;
+        description: string;
+        thumbnails: { default: { url: string } };
+        playlistId: string;
+        resourceId: { videoId: string };
+      };
+    }
+  ];
+  nextPageToken: string;
+}

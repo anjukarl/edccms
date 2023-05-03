@@ -1,0 +1,45 @@
+<mat-toolbar>
+  <img src="../../../assets/econ-10.png" alt="logo" class="logoimg" />
+  <span>WITH THE BIBLE - Getting YouTube Videos</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button routerLink="/home">
+    <mat-icon>home</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container">
+  <mat-grid-list cols="1" rowHeight="3em">
+    <mat-grid-tile>
+      <button *ngIf="status === 'Getting playlists...'" mat-raised-button>
+        Getting Playlists...
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button
+        *ngIf="status === 'Getting playlists completed!'"
+        mat-raised-button
+        (click)="addPlaylists()"
+      >
+        Add playlists to database
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button
+        *ngIf="status === 'Playlist process completed!'"
+        mat-raised-button
+        (click)="getVideos()"
+      >
+        Get videos for playlists
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button
+        *ngIf="status === 'Process completed!'"
+        mat-raised-button
+        routerLink="/home"
+      >
+        Return to menu
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

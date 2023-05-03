@@ -43,13 +43,15 @@ import { AddSermonsComponent } from './components/add-sermons/add-sermons.compon
 import { EditSermonsComponent } from './components/edit-sermons/edit-sermons.component';
 import { MessagesaudioComponent } from './components/messagesaudio/messagesaudio.component';
 import { AddMessagesaudioComponent } from './components/add-messagesaudio/add-messagesaudio.component';
+import { GetytdataComponent } from './components/getytdata/getytdata.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'bibverses', component: BibversesComponent },
   { path: 'books', component: BooksComponent },
   { path: 'dailyword', component: DailywordComponent },
-  { path: 'getfromyt', component: GetfromytComponent },
+  // { path: 'getfromyt', component: GetfromytComponent },
+  { path: 'getytdata', component: GetytdataComponent },
   { path: 'messages', component: MessagesComponent },
   { path: 'messagesaudio', component: MessagesaudioComponent },
   { path: 'qanda', component: QandaComponent },
@@ -93,6 +95,7 @@ const routes: Routes = [
     EditSermonsComponent,
     MessagesaudioComponent,
     AddMessagesaudioComponent,
+    GetytdataComponent,
   ],
   imports: [
     BrowserModule,
