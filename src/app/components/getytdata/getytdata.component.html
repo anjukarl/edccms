@@ -34,6 +34,15 @@
     </mat-grid-tile>
     <mat-grid-tile>
       <button
+        *ngIf="status === 'Getting videos completed!'"
+        mat-raised-button
+        (click)="addVideos()"
+      >
+        Add videos to database
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button
         *ngIf="status === 'Process completed!'"
         mat-raised-button
         routerLink="/home"

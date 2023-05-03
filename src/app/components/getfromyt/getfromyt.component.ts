@@ -71,9 +71,7 @@ export class GetfromytComponent implements OnInit {
           videoId: vurl,
           title: vtitle,
           thumbnail: vtn,
-          date: '',
-          playlist: '',
-          type: '',
+          playlistId: '',
         });
       }
     });

@@ -387,7 +387,7 @@ export class FileService {
     let batch = this.db.firestore.batch();
 
     for (const video of newVideos) {
-      const docRef = this.db.collection('vmedia').doc().ref;
+      const docRef = this.db.collection('videos').doc().ref;
       batch.set(docRef, video);
     }
     return batch.commit();

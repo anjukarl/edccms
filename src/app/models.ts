@@ -92,11 +92,9 @@ export interface VidData {
 }
 
 export interface Videos {
-  date?: string;
-  playlist?: string;
+  playlistId: string;
   thumbnail: string;
   title: string;
-  type?: string;
   videoId: string;
 }
 
@@ -127,7 +125,6 @@ export interface VidPlaylistItems {
     {
       snippet: {
         title: string;
-        description: string;
         thumbnails: { default: { url: string } };
         playlistId: string;
         resourceId: { videoId: string };
