@@ -96,19 +96,21 @@ export class GetytdataComponent implements OnInit {
   */
 
   async getVideos() {
-    this.playlistId = this.playlists[0].playlistId;
-    this.pms2 = new HttpParams()
-      .set('key', this.ky)
-      .set('playlistId', this.playlistId);
-    let count = 0;
-    do {
-      if (this.nextPage.length > 0) {
-        this.addNextToParams2(this.nextPage);
-      }
-      this.getPlaylistItems();
-      await this.delay(1000);
-      count++;
-    } while (this.nextPage.length > 0);
+    for (var _i = 0; _i < this.playlists.length; _i++) {
+      this.playlistId = this.playlists[_i].playlistId;
+      this.pms2 = new HttpParams()
+        .set('key', this.ky)
+        .set('playlistId', this.playlistId);
+      let count = 0;
+      do {
+        if (this.nextPage.length > 0) {
+          this.addNextToParams2(this.nextPage);
+        }
+        this.getPlaylistItems();
+        await this.delay(1000);
+        count++;
+      } while (this.nextPage.length > 0);
+    }
     this.status = 'Getting videos completed!';
   }
 
