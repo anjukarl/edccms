@@ -1,0 +1,27 @@
+mat-toolbar {
+  background-color: rgb(86, 150, 113, 0.8);
+  color: white;
+  box-shadow: 2px 5px 8px rgb(0, 0, 0, 0.6);
+}
+
+h2 {
+  margin-top: 2em;
+  text-align: center;
+}
+
+.loginform {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin: auto;
+}
+
+.logbut {
+  margin-top: 2em;
+}
+
+.logfail {
+  margin-top: 2em;
+  color: red;
+  text-align: center;
+}

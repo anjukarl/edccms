@@ -6,15 +6,17 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { MaterialModule } from './material.module';
 
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { AddTracksComponent } from './components/add-tracks/add-tracks.component';
-import { MaterialModule } from './material.module';
 import { HomeComponent } from './components/home/home.component';
 import { WtbaudioComponent } from './components/wtbaudio/wtbaudio.component';
 import { GetfromytComponent } from './components/getfromyt/getfromyt.component';
@@ -44,22 +46,66 @@ import { EditSermonsComponent } from './components/edit-sermons/edit-sermons.com
 import { MessagesaudioComponent } from './components/messagesaudio/messagesaudio.component';
 import { AddMessagesaudioComponent } from './components/add-messagesaudio/add-messagesaudio.component';
 import { GetytdataComponent } from './components/getytdata/getytdata.component';
+import { LoginComponent } from './components/login/login.component';
+import { GuardService } from './services/guard.service';
+import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'bibverses', component: BibversesComponent },
-  { path: 'books', component: BooksComponent },
-  { path: 'dailyword', component: DailywordComponent },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [GuardService],
+  },
+  {
+    path: 'bibverses',
+    component: BibversesComponent,
+    canActivate: [GuardService],
+  },
+  {
+    path: 'books',
+    component: BooksComponent,
+    canActivate: [GuardService],
+  },
+  {
+    path: 'dailyword',
+    component: DailywordComponent,
+    canActivate: [GuardService],
+  },
   // { path: 'getfromyt', component: GetfromytComponent },
-  { path: 'getytdata', component: GetytdataComponent },
-  { path: 'messages', component: MessagesComponent },
-  { path: 'messagesaudio', component: MessagesaudioComponent },
-  { path: 'qanda', component: QandaComponent },
-  { path: 'songs', component: SongsComponent },
-  { path: 'wtbaudio', component: WtbaudioComponent },
-  { path: 'sermonaudio', component: SermonaudioComponent },
-  { path: 'sermonseries', component: SermonseriesComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'getytdata',
+    component: GetytdataComponent,
+    canActivate: [GuardService],
+  },
+  {
+    path: 'messages',
+    component: MessagesComponent,
+    canActivate: [GuardService],
+  },
+  {
+    path: 'messagesaudio',
+    component: MessagesaudioComponent,
+    canActivate: [GuardService],
+  },
+  { path: 'qanda', component: QandaComponent, canActivate: [GuardService] },
+  { path: 'songs', component: SongsComponent, canActivate: [GuardService] },
+  {
+    path: 'wtbaudio',
+    component: WtbaudioComponent,
+    canActivate: [GuardService],
+  },
+  {
+    path: 'sermonaudio',
+    component: SermonaudioComponent,
+    canActivate: [GuardService],
+  },
+  {
+    path: 'sermonseries',
+    component: SermonseriesComponent,
+    canActivate: [GuardService],
+  },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -96,6 +142,7 @@ const routes: Routes = [
     MessagesaudioComponent,
     AddMessagesaudioComponent,
     GetytdataComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,12 +151,13 @@ const routes: Routes = [
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
+    AngularFireAuthModule,
     MaterialModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
     AngularEditorModule,
   ],
-  providers: [],
+  providers: [GuardService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

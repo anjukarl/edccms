@@ -1,0 +1,34 @@
+<mat-toolbar>
+  <img src="../../../assets/econ-10.png" alt="logo" class="logoimg" />
+  <span>WITH THE BIBLE - Administration</span>
+</mat-toolbar>
+<h2>LOGIN</h2>
+
+<div class="loginform" [formGroup]="form">
+  <mat-form-field>
+    <input placeholder="Email" type="email" matInput formControlName="email" />
+    <mat-error *ngIf="email.invalid">Email is not valid!</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      placeholder="Password"
+      type="password"
+      matInput
+      formControlName="password"
+    />
+    <mat-error *ngIf="password.invalid">Password is mandatory!</mat-error>
+  </mat-form-field>
+
+  <button
+    class="logbut"
+    [disabled]="!form.valid"
+    mat-raised-button
+    color="primary"
+    (click)="login()"
+  >
+    Login
+  </button>
+  <div *ngIf="failedLogin" class="logfail">
+    <p>Email and/or password invalid!</p>
+  </div>
+</div>

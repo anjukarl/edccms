@@ -2,59 +2,87 @@
   <img src="../../../assets/econ-10.png" alt="logo" class="logoimg" />
   <span>WITH THE BIBLE - Administration</span>
   <span class="example-spacer"></span>
+  <button mat-icon-button routerLink="/login">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
 </mat-toolbar>
 
 <div class="container">
   <mat-grid-list cols="2" rowHeight="5em" gutterSize="5px">
     <mat-grid-tile>
-      <button mat-raised-button routerLink="/wtbaudio" mat-button>
+      <button class="menu" mat-raised-button routerLink="/wtbaudio" mat-button>
         'With the Bible' audio
       </button>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button disabled mat-raised-button routerLink="/getytdata" mat-button>
+      <button
+        class="menu"
+        disabled
+        mat-raised-button
+        routerLink="/getytdata"
+        mat-button
+      >
         Videos from YouTube channel
       </button>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button mat-raised-button routerLink="/songs" mat-button>Songs</button>
+      <button class="menu" mat-raised-button routerLink="/songs" mat-button>
+        Songs
+      </button>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button mat-raised-button routerLink="/dailyword" mat-button>
+      <button class="menu" mat-raised-button routerLink="/dailyword" mat-button>
         'Daily Word' text and audio
       </button>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button mat-raised-button routerLink="/qanda" mat-button>
+      <button class="menu" mat-raised-button routerLink="/qanda" mat-button>
         'Q & A' text
       </button>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button mat-raised-button routerLink="/books" mat-button>Books</button>
+      <button class="menu" mat-raised-button routerLink="/books" mat-button>
+        Books
+      </button>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button mat-raised-button routerLink="/messages" mat-button>
+      <button class="menu" mat-raised-button routerLink="/messages" mat-button>
         Other's Messages - VIDEO
       </button>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button mat-raised-button routerLink="/messagesaudio" mat-button>
+      <button
+        class="menu"
+        mat-raised-button
+        routerLink="/messagesaudio"
+        mat-button
+      >
         Other's Messages - AUDIO
       </button>
     </mat-grid-tile>
 
     <mat-grid-tile>
-      <button mat-raised-button routerLink="/sermonseries" mat-button>
+      <button
+        class="menu"
+        mat-raised-button
+        routerLink="/sermonseries"
+        mat-button
+      >
         Audio Sermon Series Titles
       </button>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button mat-raised-button routerLink="/sermonaudio" mat-button>
+      <button
+        class="menu"
+        mat-raised-button
+        routerLink="/sermonaudio"
+        mat-button
+      >
         Audio Sermons
       </button>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button mat-raised-button routerLink="/bibverses" mat-button>
+      <button class="menu" mat-raised-button routerLink="/bibverses" mat-button>
         Bible verses (hero section)
       </button>
     </mat-grid-tile>
