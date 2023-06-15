@@ -10,6 +10,7 @@ import { DialogService } from '../../services/dialog.service';
 import { Songs } from '../../models';
 import { AddSongsComponent } from '../add-songs/add-songs.component';
 import { EditSongsComponent } from '../edit-songs/edit-songs.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-songs',
@@ -28,7 +29,8 @@ export class SongsComponent implements OnInit {
   constructor(
     private fileService: FileService,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -101,5 +103,9 @@ export class SongsComponent implements OnInit {
             .subscribe();
         }
       });
+  }
+
+  logout() {
+    this.authService.signOut();
   }
 }

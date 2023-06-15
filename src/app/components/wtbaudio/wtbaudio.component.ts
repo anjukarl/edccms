@@ -9,6 +9,7 @@ import { Track } from '../../models';
 import { FileService } from '../../services/file.service';
 import { DialogService } from '../../services/dialog.service';
 import { AddTracksComponent } from '../../components/add-tracks/add-tracks.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-wtbaudio',
@@ -29,7 +30,8 @@ export class WtbaudioComponent implements OnInit {
   constructor(
     private fileService: FileService,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -93,5 +95,9 @@ export class WtbaudioComponent implements OnInit {
 
   updateName() {
     this.fileService.updateName();
+  }
+
+  logout() {
+    this.authService.signOut();
   }
 }

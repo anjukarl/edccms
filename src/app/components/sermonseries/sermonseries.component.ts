@@ -10,6 +10,7 @@ import { DialogService } from '../../services/dialog.service';
 import { Series } from '../../models';
 import { AddSeriesComponent } from '../add-series/add-series.component';
 import { EditSeriesComponent } from '../edit-series/edit-series.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sermonseries',
@@ -30,7 +31,8 @@ export class SermonseriesComponent implements OnInit {
   constructor(
     private fileService: FileService,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -103,5 +105,9 @@ export class SermonseriesComponent implements OnInit {
             .subscribe();
         }
       });
+  }
+
+  logout() {
+    this.authService.signOut();
   }
 }

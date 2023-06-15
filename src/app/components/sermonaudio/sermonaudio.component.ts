@@ -10,6 +10,7 @@ import { FileService } from '../../services/file.service';
 import { DialogService } from '../../services/dialog.service';
 import { AddSermonsComponent } from '../../components/add-sermons/add-sermons.component';
 import { EditSermonsComponent } from '../edit-sermons/edit-sermons.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sermonaudio',
@@ -30,7 +31,8 @@ export class SermonaudioComponent implements OnInit {
   constructor(
     private fileService: FileService,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -103,5 +105,9 @@ export class SermonaudioComponent implements OnInit {
             .subscribe();
         }
       });
+  }
+
+  logout() {
+    this.authService.signOut();
   }
 }

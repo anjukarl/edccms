@@ -8,6 +8,7 @@ import {
   Videos,
 } from './../../models';
 import { FileService } from '../../services/file.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-getytdata',
@@ -30,7 +31,11 @@ export class GetytdataComponent implements OnInit {
   pms = new HttpParams().set('channelId', this.channel).set('key', this.ky);
   pms2 = new HttpParams().set('key', this.ky);
 
-  constructor(private http: HttpClient, private fileService: FileService) {}
+  constructor(
+    private http: HttpClient,
+    private fileService: FileService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.status = 'Getting playlists...';
@@ -157,5 +162,9 @@ export class GetytdataComponent implements OnInit {
 
   delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  logout() {
+    this.authService.signOut();
   }
 }

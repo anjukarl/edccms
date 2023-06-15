@@ -10,6 +10,7 @@ import { DialogService } from '../../services/dialog.service';
 import { Message } from '../../models';
 import { AddMessagesComponent } from '../add-messages/add-messages.component';
 import { EditMessagesComponent } from '../edit-messages/edit-messages.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-messages',
@@ -28,7 +29,8 @@ export class MessagesComponent implements OnInit {
   constructor(
     private fileService: FileService,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -101,5 +103,9 @@ export class MessagesComponent implements OnInit {
             .subscribe();
         }
       });
+  }
+
+  logout() {
+    this.authService.signOut();
   }
 }

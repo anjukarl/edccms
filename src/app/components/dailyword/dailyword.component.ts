@@ -10,6 +10,7 @@ import { DialogService } from '../../services/dialog.service';
 import { DailyWord } from '../../models';
 import { AddDwComponent } from '../add-dw/add-dw.component';
 import { EditDwComponent } from '../edit-dw/edit-dw.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dailyword',
@@ -28,7 +29,8 @@ export class DailywordComponent implements OnInit {
   constructor(
     private fileService: FileService,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -101,5 +103,9 @@ export class DailywordComponent implements OnInit {
             .subscribe();
         }
       });
+  }
+
+  logout() {
+    this.authService.signOut();
   }
 }

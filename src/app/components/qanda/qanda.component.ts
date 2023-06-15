@@ -10,6 +10,7 @@ import { DialogService } from '../../services/dialog.service';
 import { Qanda } from '../../models';
 import { AddQandaComponent } from '../add-qanda/add-qanda.component';
 import { EditQandaComponent } from '../edit-qanda/edit-qanda.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-qanda',
@@ -30,7 +31,8 @@ export class QandaComponent implements OnInit {
   constructor(
     private fileService: FileService,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -103,5 +105,9 @@ export class QandaComponent implements OnInit {
             .subscribe();
         }
       });
+  }
+
+  logout() {
+    this.authService.signOut();
   }
 }
