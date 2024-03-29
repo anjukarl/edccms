@@ -9,6 +9,7 @@ import {
 } from './../../models';
 import { FileService } from '../../services/file.service';
 import { AuthService } from '../../services/auth.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-getytdata',
@@ -17,7 +18,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class GetytdataComponent implements OnInit {
   playlists: YTPlaylist[] = [];
+  oldPlaylists: YTPlaylist[] = [];
   videos: Videos[] = [];
+  oldVideos: Videos[] = [];
   nextPage = '';
   status = '';
 
@@ -39,7 +42,20 @@ export class GetytdataComponent implements OnInit {
 
   ngOnInit(): void {
     this.status = 'Getting playlists...';
-    this.getPlaylistLoop();
+    this.fileService
+      .loadYTPlaylist()
+      .pipe(take(1))
+      .subscribe((playlist) => {
+        this.oldPlaylists = playlist;
+
+        this.fileService
+          .loadYTVideo()
+          .pipe(take(1))
+          .subscribe((videos) => {
+            this.oldVideos = videos;
+          });
+        this.getPlaylistLoop();
+      });
   }
 
   /*
@@ -80,12 +96,24 @@ export class GetytdataComponent implements OnInit {
           const vtitle = res.items[_i].snippet.title;
           const vdescription = res.items[_i].snippet.description;
           const vtn = res.items[_i].snippet.thumbnails.default.url;
-          this.playlists.push({
-            title: vtitle,
-            description: vdescription,
-            thumbnail: vtn,
-            playlistId: plid,
-          });
+
+          const result = this.oldPlaylists.find(
+            (item) => item.playlistId == plid
+          );
+          if (!result) {
+            this.playlists.push({
+              title: vtitle,
+              description: vdescription,
+              thumbnail: vtn,
+              playlistId: plid,
+            });
+            this.oldPlaylists.push({
+              title: vtitle,
+              description: vdescription,
+              thumbnail: vtn,
+              playlistId: plid,
+            });
+          }
         }
       });
   }
@@ -101,8 +129,8 @@ export class GetytdataComponent implements OnInit {
   */
 
   async getVideos() {
-    for (var _i = 0; _i < this.playlists.length; _i++) {
-      this.playlistId = this.playlists[_i].playlistId;
+    for (var _i = 0; _i < this.oldPlaylists.length; _i++) {
+      this.playlistId = this.oldPlaylists[_i].playlistId;
       this.pms2 = new HttpParams()
         .set('key', this.ky)
         .set('playlistId', this.playlistId);
@@ -140,12 +168,16 @@ export class GetytdataComponent implements OnInit {
           const vtitle = res.items[_i].snippet.title;
           const vtn = res.items[_i].snippet.thumbnails.default.url;
           const plId = res.items[_i].snippet.playlistId;
-          this.videos.push({
-            title: vtitle,
-            thumbnail: vtn,
-            playlistId: plId,
-            videoId: videoId,
-          });
+
+          const result = this.oldVideos.find((item) => item.videoId == videoId);
+          if (!result) {
+            this.videos.push({
+              title: vtitle,
+              thumbnail: vtn,
+              playlistId: plId,
+              videoId: videoId,
+            });
+          }
         }
       });
   }

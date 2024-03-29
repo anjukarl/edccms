@@ -92,6 +92,7 @@ export interface VidData {
 }
 
 export interface Videos {
+  id?: string;
   playlistId: string;
   thumbnail: string;
   title: string;

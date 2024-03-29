@@ -27,15 +27,11 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input
-      placeholder="Video ID"
-      matInput
-      formControlName="videoUrl"
-      (change)="onUrlAvailable()"
-    />
+    <input placeholder="Video ID" matInput formControlName="videoUrl" />
+    <mat-error *ngIf="videoUrl.invalid">URL is mandatory!</mat-error>
   </mat-form-field>
 
-  <div *ngIf="form.valid && !urlAvailable">
+  <!-- <div *ngIf="form.valid && !urlAvailable">
     <div (click)="upload.click()">
       <button mat-raised-button color="primary">Select Audio File</button>
       <input
@@ -56,16 +52,16 @@
       </mat-progress-bar>
       <span> {{ percentage / 100 | percent }} </span>
     </div>
-  </div>
+  </div> -->
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button *ngIf="!canClose" mat-raised-button color="accent">Saving...</button>
+  <!-- <button *ngIf="!canClose" mat-raised-button color="accent">Saving...</button>
   <button *ngIf="canClose" mat-raised-button color="primary" (click)="close()">
     Close
-  </button>
+  </button> -->
   <button
-    *ngIf="urlAvailable"
+    [disabled]="!form.valid"
     mat-raised-button
     color="primary"
     (click)="saveSermon()"

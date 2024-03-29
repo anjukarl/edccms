@@ -83,11 +83,15 @@ export class FileService {
       .pipe(map((results) => convertSnaps<Sermon>(results)));
   }
 
-  deleteSermon(sermonId: string, sermonName: string) {
-    if (sermonName.length > 0) {
-      const storageRef = this.storage.ref(this.sermonPath);
-      storageRef.child(sermonName).delete();
-    }
+  // deleteSermon(sermonId: string, sermonName: string) {
+  //   if (sermonName.length > 0) {
+  //     const storageRef = this.storage.ref(this.sermonPath);
+  //     storageRef.child(sermonName).delete();
+  //   }
+  //   return from(this.db.doc(`sermons/${sermonId}`).delete());
+  // }
+
+  deleteSermon(sermonId: string) {
     return from(this.db.doc(`sermons/${sermonId}`).delete());
   }
 
@@ -401,6 +405,20 @@ export class FileService {
       batch.set(docRef, playlist);
     }
     return batch.commit();
+  }
+
+  loadYTVideo(): Observable<Videos[]> {
+    return this.db
+      .collection('videos', (ref) => ref.orderBy('videoId'))
+      .get()
+      .pipe(map((results) => convertSnaps<Videos>(results)));
+  }
+
+  loadYTPlaylist(): Observable<YTPlaylist[]> {
+    return this.db
+      .collection('vplaylist', (ref) => ref.orderBy('playlistId'))
+      .get()
+      .pipe(map((results) => convertSnaps<YTPlaylist>(results)));
   }
 
   /*

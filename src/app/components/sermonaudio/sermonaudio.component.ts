@@ -100,7 +100,7 @@ export class SermonaudioComponent implements OnInit {
       .subscribe((res) => {
         if (res) {
           this.fileService
-            .deleteSermon(sermon.id, sermon.fileName)
+            .deleteSermon(sermon.id)
             .pipe(finalize(() => this.reloadSermons()))
             .subscribe();
         }

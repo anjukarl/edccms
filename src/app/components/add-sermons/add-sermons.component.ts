@@ -19,8 +19,8 @@ export class AddSermonsComponent implements OnInit {
   percentageChanges$!: Observable<number>;
   series$!: Observable<Series[]>;
   filen = '';
-  canClose = true;
-  urlAvailable = false;
+  // canClose = true;
+  // urlAvailable = false;
 
   constructor(
     private dialogRef: MatDialogRef<AddSermonsComponent>,
@@ -32,7 +32,7 @@ export class AddSermonsComponent implements OnInit {
       series: [''],
       title: ['', Validators.required],
       description: [''],
-      videoUrl: [''],
+      videoUrl: ['', Validators.required],
     });
   }
 
@@ -44,51 +44,51 @@ export class AddSermonsComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onUrlAvailable() {
-    if (this.form.value.videoUrl.length > 0) {
-      this.urlAvailable = true;
-    } else {
-      this.urlAvailable = false;
-    }
-  }
+  // onUrlAvailable() {
+  //   if (this.form.value.videoUrl.length > 0) {
+  //     this.urlAvailable = true;
+  //   } else {
+  //     this.urlAvailable = false;
+  //   }
+  // }
 
-  uploadSermon(event: any) {
-    const file = event.target.files[0];
-    this.canClose = false;
+  // uploadSermon(event: any) {
+  //   const file = event.target.files[0];
+  //   this.canClose = false;
 
-    let filename = file.name;
-    this.filen = filename;
-    filename = filename.split('.').join('-' + Date.now() + '.');
+  //   let filename = file.name;
+  //   this.filen = filename;
+  //   filename = filename.split('.').join('-' + Date.now() + '.');
 
-    const filePath = `/audioSermons/${filename}`;
-    const storageRef = this.storage.ref(filePath);
+  //   const filePath = `/audioSermons/${filename}`;
+  //   const storageRef = this.storage.ref(filePath);
 
-    const task = this.storage.upload(filePath, file);
+  //   const task = this.storage.upload(filePath, file);
 
-    this.percentageChanges$ = task.percentageChanges() as Observable<number>;
-    task
-      .snapshotChanges()
-      .pipe(
-        finalize(() => {
-          storageRef.getDownloadURL().subscribe((downloadUrl) => {
-            this.saveSermonInfo(downloadUrl, filename);
-            this.canClose = true;
-          });
-        })
-      )
-      .subscribe();
-  }
+  //   this.percentageChanges$ = task.percentageChanges() as Observable<number>;
+  //   task
+  //     .snapshotChanges()
+  //     .pipe(
+  //       finalize(() => {
+  //         storageRef.getDownloadURL().subscribe((downloadUrl) => {
+  //           this.saveSermonInfo(downloadUrl, filename);
+  //           this.canClose = true;
+  //         });
+  //       })
+  //     )
+  //     .subscribe();
+  // }
 
-  saveSermonInfo(dlurl: string, fileName: string) {
-    let newSermon: Partial<Sermon> = {};
-    newSermon.series = this.form.value.series;
-    newSermon.title = this.form.value.title;
-    newSermon.description = this.form.value.description;
-    newSermon.videoUrl = this.form.value.videoUrl;
-    newSermon.path = dlurl;
-    newSermon.fileName = fileName;
-    this.fileService.createSermon(newSermon);
-  }
+  // saveSermonInfo(dlurl: string, fileName: string) {
+  //   let newSermon: Partial<Sermon> = {};
+  //   newSermon.series = this.form.value.series;
+  //   newSermon.title = this.form.value.title;
+  //   newSermon.description = this.form.value.description;
+  //   newSermon.videoUrl = this.form.value.videoUrl;
+  //   newSermon.path = dlurl;
+  //   newSermon.fileName = fileName;
+  //   this.fileService.createSermon(newSermon);
+  // }
 
   saveSermon() {
     let newSermon: Partial<Sermon> = {};
@@ -96,12 +96,16 @@ export class AddSermonsComponent implements OnInit {
     newSermon.title = this.form.value.title;
     newSermon.description = this.form.value.description;
     newSermon.videoUrl = this.form.value.videoUrl;
-    newSermon.fileName = '';
+    // newSermon.fileName = '';
     this.fileService.createSermon(newSermon);
     this.dialogRef.close();
   }
 
   get title() {
     return this.form.controls['title'];
+  }
+
+  get videoUrl() {
+    return this.form.controls['videoUrl'];
   }
 }
